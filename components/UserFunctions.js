@@ -3,7 +3,7 @@ import axios from 'axios'
 export const register = newUser => {
     return axios
         .post('/api/register', {
-            name: newUser.name,
+            username: newUser.username,
             email: newUser.email,
             password: newUser.password
         })

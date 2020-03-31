@@ -6,7 +6,7 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
+      username: "",
       email: "",
       password: "",
       errors: {}
@@ -23,7 +23,7 @@ class Register extends Component {
     e.preventDefault();
 
     const newUser = {
-      name: this.state.name,
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password
     };
@@ -48,16 +48,16 @@ class Register extends Component {
             noValidate
             onSubmit={this.onSubmit}
             style={{
-              border: "5px solid black",
+              border: "5px solid #212529",
               borderTopRightRadius: "4px",
               borderBottomRightRadius: "4px",
               borderTopLeftRadius: "4px",
               borderBottomLeftRadius: "4px",
               borderCollapse: "separate",
               borderSpacing: "10px",
-              padding:"30px",
-              paddingTop:"00px",
-              paddingBottom:"0px"
+              padding: "30px",
+              paddingTop: "00px",
+              paddingBottom: "0px"
             }}
           >
             <h3
@@ -68,7 +68,8 @@ class Register extends Component {
                 paddingTop: "20px",
                 fontStyle: "italic",
                 fontWeight: "900",
-                marginBottom: "0px"
+                marginBottom: "0px",
+                color:"#212529"
               }}
             >
               hivemind
@@ -76,32 +77,33 @@ class Register extends Component {
 
             <div className="form-group">
               <label
-                htmlFor="name"
+                htmlFor="username"
                 style={{
                   fontFamily: "Roboto",
                   fontWeight: "500",
-                  fontSize: "18px"
+                  fontSize: "18px",
+                  color:"#212529"
                 }}
               >
-                name
+                username
               </label>
               <input
                 type="text"
                 className="form-control"
-                name="first_name"
-                placeholder="name"
-                value={this.state.first_name}
+                name="username"
+                placeholder="username"
+                value={this.state.username}
                 onChange={this.onChange}
               />
             </div>
-
             <div className="form-group">
               <label
                 htmlFor="email"
                 style={{
                   fontFamily: "Roboto",
                   fontWeight: "500",
-                  fontSize: "18px"
+                  fontSize: "18px",
+                  color:"#212529"
                 }}
               >
                 email
@@ -116,14 +118,14 @@ class Register extends Component {
                 onChange={this.onChange}
               />
             </div>
-
             <div className="form-group">
               <label
                 htmlFor="password"
                 style={{
                   fontFamily: "Roboto",
                   fontWeight: "500",
-                  fontSize: "18px"
+                  fontSize: "18px",
+                  color:"#212529"
                 }}
               >
                 password
@@ -138,7 +140,6 @@ class Register extends Component {
                 onChange={this.onChange}
               />
             </div>
-
             <button
               type="submit"
               className="btn btn-block "
@@ -147,7 +148,9 @@ class Register extends Component {
                 fontFamily: "Roboto",
                 fontWeight: "900",
                 fontStyle: "italic",
-                fontSize: "25px"
+                fontSize: "25px",
+                marginTop:"20px",
+                color:"#212529"
               }}
             >
               Sign Up
@@ -158,15 +161,19 @@ class Register extends Component {
                 fontFamily: "Roboto",
                 fontWeight: "500",
                 fontSize: "18px",
-                textAlign:"center",
-                paddingTop:"15px"
+                textAlign: "center",
+                paddingTop: "15px",
+                color:"#212529"
               }}
             >
               Already registered?{" "}
-              <a href="/login" style={{ fontStyle: "italic", color:"#EF7B73" }}>
+              <a
+                href="/login"
+                style={{ fontStyle: "italic", color: "#EF7B73" }}
+              >
                 Sign In
               </a>
-            </p>           
+            </p>
           </form>
         </div>
       </div>

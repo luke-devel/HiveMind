@@ -8,7 +8,7 @@ let sequelize;
 // if (config.use_env_variable) {
 //     sequelize = new Sequelize(process.env[config.use_env_variable], config);
 // } else {
-    sequelize = new Sequelize("hivemind", "root", "password", {
+    sequelize = new Sequelize("hivemind", "root", "1440", {
         "host": "127.0.0.1",
         "dialect": "mysql",
         "operatorsAliases": false

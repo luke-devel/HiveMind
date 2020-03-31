@@ -6,7 +6,11 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        firstname: {
+            type: Sequelize.STRING,
+            unique: true
+        },
+        lastname: {
             type: Sequelize.STRING,
             unique: true
         },
@@ -15,6 +19,14 @@ module.exports = (sequelize, Sequelize) => {
             unique: true
         },
         email: {
+            type: Sequelize.STRING,
+            unique: true
+        },
+        city: {
+            type: Sequelize.STRING,
+            unique: true
+        },
+        state: {
             type: Sequelize.STRING,
             unique: true
         },

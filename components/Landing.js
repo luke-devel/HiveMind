@@ -1,4 +1,3 @@
-import png from "../assets/images/HiveMind.png";
 import Router from "next/router";
 
 export default function Landing() {
