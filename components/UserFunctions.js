@@ -15,3 +15,20 @@ export const register = newUser => {
             alert("This email already used");
         });     
 }
+
+export const login = user => {
+    return axios
+        .post('/api/login', {
+            email: user.username,
+            email: user.email,
+            password: user.password
+        })
+        .then(response => {
+            console.log(response.data);
+            localStorage.setItem('usertoken', response.data.token)
+            return response.data
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

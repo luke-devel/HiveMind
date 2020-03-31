@@ -1,7 +1,7 @@
 export default function Index() {
     return (
       <>
-        <h1>login</h1>
+        <h1>profile</h1>
       </>
     );
   }
