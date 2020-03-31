@@ -23,14 +23,17 @@ class Login extends Component {
     e.preventDefault();
 
     const newUser = {
-      username: this.state.username,
-      email: this.state.email,
+      userInput: this.state.userInput,
       password: this.state.password
     };
 
     login(newUser)
       .then(res => {
-        Router.replace("/profile");
+        if (res.data === "invalid username or email") {
+          Router.replace("/login");
+        } else {
+          Router.replace("/profile");
+        }
       })
       .catch(err => {
         console.log("Login Error", err);
@@ -69,7 +72,7 @@ class Login extends Component {
                 fontStyle: "italic",
                 fontWeight: "900",
                 marginBottom: "0px",
-                color:"#212529"
+                color: "#212529"
               }}
             >
               hivemind
@@ -77,44 +80,23 @@ class Login extends Component {
 
             <div className="form-group">
               <label
-                htmlFor="username"
-                style={{
-                  fontFamily: "Roboto",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color:"#212529"
-                }}
-              >
-                username
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                placeholder="username"
-                value={this.state.username}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label
                 htmlFor="email"
                 style={{
                   fontFamily: "Roboto",
                   fontWeight: "500",
                   fontSize: "18px",
-                  color:"#212529"
+                  color: "#212529"
                 }}
               >
-                email
+                username or email
               </label>
 
               <input
-                type="email"
+                type="userInput"
                 className="form-control"
-                name="email"
-                placeholder="email"
-                value={this.state.email}
+                name="userInput"
+                placeholder="username or email"
+                value={this.state.userInput}
                 onChange={this.onChange}
               />
             </div>
@@ -125,7 +107,7 @@ class Login extends Component {
                   fontFamily: "Roboto",
                   fontWeight: "500",
                   fontSize: "18px",
-                  color:"#212529"
+                  color: "#212529"
                 }}
               >
                 password
@@ -149,8 +131,8 @@ class Login extends Component {
                 fontWeight: "900",
                 fontStyle: "italic",
                 fontSize: "25px",
-                marginTop:"20px",
-                color:"#212529"
+                marginTop: "20px",
+                color: "#212529"
               }}
             >
               Sign Up
@@ -163,7 +145,7 @@ class Login extends Component {
                 fontSize: "18px",
                 textAlign: "center",
                 paddingTop: "15px",
-                color:"#212529"
+                color: "#212529"
               }}
             >
               Already registered?{" "}

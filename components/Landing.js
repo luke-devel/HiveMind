@@ -37,7 +37,7 @@ export default function Landing() {
               type="button"
               className="btn"
               onClick={() => {
-                Router.push("/register");
+                Router.push("/login");
               }}
               style={{
                 backgroundColor: "#212529",

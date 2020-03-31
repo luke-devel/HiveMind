@@ -19,14 +19,19 @@ export const register = newUser => {
 export const login = user => {
     return axios
         .post('/api/login', {
-            email: user.username,
-            email: user.email,
+            userInput: user.userInput,
             password: user.password
         })
         .then(response => {
-            console.log(response.data);
-            localStorage.setItem('usertoken', response.data.token)
+            if(response.data==="invalid username or email"){
+                console.log(`invalid username or password`)
+                alert(`invalid username and password combination`)
+            }
+            else {
+                console.log(`response is good`)
+                localStorage.setItem('usertoken', response.data.token)
             return response.data
+            }
         })
         .catch(err => {
             console.log(err)

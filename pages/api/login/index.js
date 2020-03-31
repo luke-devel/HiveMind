@@ -11,7 +11,7 @@ export default async function(req, res) {
         try {
           user = await db.user.findOne({
             where: {
-              email: req.body.email
+              email: req.body.userInput
             }
           });
           if (!user) {
@@ -20,7 +20,7 @@ export default async function(req, res) {
         } catch(e) {
           user = await db.user.findOne({
             where: {
-              username: req.body.username
+              username: req.body.userInput
             }
           });
           if (!user) {
