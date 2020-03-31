@@ -8,7 +8,7 @@ export default function Footer() {
       </div>
       <div className="row">
         <div className="col-lg-12 footer">
-          <p className="text-center copyright">Copyright © 2020 - HiveMind</p>
+          <p className="text-center copyright" style={{ fontFamily:"Roboto",  fontWeight:"700", color:"black" }}>Copyright © 2020 - HiveMind</p>
         </div>
       </div>
     </div>

@@ -40,8 +40,26 @@ class Register extends Component {
   render() {
     return (
       <div className="row m-3 p-3">
-        <div className="col-lg-6 col-md-10 rounded-lg bg-light mx-auto shadow-lg">
-          <form noValidate onSubmit={this.onSubmit}>
+        <div
+          className="col-lg-6 col-md-10 rounded-lg bg-light mx-auto shadow-lg"
+          style={{ paddingLeft: "0px", paddingRight: "0px" }}
+        >
+          <form
+            noValidate
+            onSubmit={this.onSubmit}
+            style={{
+              border: "5px solid black",
+              borderTopRightRadius: "4px",
+              borderBottomRightRadius: "4px",
+              borderTopLeftRadius: "4px",
+              borderBottomLeftRadius: "4px",
+              borderCollapse: "separate",
+              borderSpacing: "10px",
+              padding:"30px",
+              paddingTop:"00px",
+              paddingBottom:"0px"
+            }}
+          >
             <h3
               style={{
                 fontSize: "50px",
@@ -135,16 +153,20 @@ class Register extends Component {
               Sign Up
             </button>
             <p
-              className="text-right"
               style={{
                 paddingTop: "10px",
                 fontFamily: "Roboto",
                 fontWeight: "500",
-                fontSize: "18px"
+                fontSize: "18px",
+                textAlign:"center",
+                paddingTop:"15px"
               }}
             >
-              Already registered? <a href="/login" style={{fontStyle:"italic"}}>Sign In</a>
-            </p>
+              Already registered?{" "}
+              <a href="/login" style={{ fontStyle: "italic", color:"#EF7B73" }}>
+                Sign In
+              </a>
+            </p>           
           </form>
         </div>
       </div>
