@@ -1,9 +1,12 @@
-import Link from 'next/link';
+
+import Landing from '../components/Landing'
+import Footer from '../components/Footer'
 
 export default function Index() {
-  return <>
-    <h1>Hello World!</h1>
-    <Link href="/about">About.js</Link>
-    <a href="/about">About.js</a>
-  </>
+  return (
+    <>
+      <Landing/>
+      <Footer/>
+    </>
+  );
 }

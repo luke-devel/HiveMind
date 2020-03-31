@@ -345,7 +345,7 @@ function unique() {
 }
 /**
  *
- * @param headElement List of multiple <Head> instances
+ * @param headElements List of multiple <Head> instances
  */
 
 
@@ -478,22 +478,23 @@ var statusCodes = {
   405: 'Method Not Allowed',
   500: 'Internal Server Error'
 };
+
+function _getInitialProps(_ref) {
+  var {
+    res,
+    err
+  } = _ref;
+  var statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
+  return {
+    statusCode
+  };
+}
 /**
 * `Error` component used for handling errors.
 */
 
-class Error extends _react.default.Component {
-  static getInitialProps(_ref) {
-    var {
-      res,
-      err
-    } = _ref;
-    var statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
-    return {
-      statusCode
-    };
-  }
 
+class Error extends _react.default.Component {
   render() {
     var {
       statusCode
@@ -518,6 +519,8 @@ class Error extends _react.default.Component {
 
 exports.default = Error;
 Error.displayName = 'ErrorPage';
+Error.getInitialProps = _getInitialProps;
+Error.origGetInitialProps = _getInitialProps;
 var styles = {
   error: {
     color: '#000',

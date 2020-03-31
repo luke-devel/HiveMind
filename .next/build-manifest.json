@@ -1,13 +1,17 @@
 {
   "devFiles": [
-    "static/development/dll/dll_88bfe47d29bf84228398.js",
-    "static/development/dll/dll_88bfe47d29bf84228398.js.map"
+    "static/development/dll/dll_dc8ac110ce5d8530b237.js",
+    "static/development/dll/dll_dc8ac110ce5d8530b237.js.map"
   ],
   "lowPriorityFiles": [
     "static/development/_buildManifest.js",
     "static/development/_ssgManifest.js"
   ],
   "pages": {
+    "/": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -20,7 +24,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/books/[id]": [
+    "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/register": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

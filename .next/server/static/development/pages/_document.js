@@ -336,6 +336,29 @@ function cleanAmpPath(pathname) {
     return pathname;
 }
 exports.cleanAmpPath = cleanAmpPath;
+function collectEnv(page, env, pageEnv) {
+    const missingEnvKeys = new Set();
+    const collected = pageEnv
+        ? pageEnv.reduce((prev, key) => {
+            if (typeof env[key] !== 'undefined') {
+                prev[key] = env[key];
+            }
+            else {
+                missingEnvKeys.add(key);
+            }
+            return prev;
+        }, {})
+        : {};
+    if (missingEnvKeys.size > 0) {
+        console.warn(`Missing env value${missingEnvKeys.size === 1 ? '' : 's'}: ${[
+            ...missingEnvKeys,
+        ].join(', ')} for ${page}.\n` +
+            `Make sure to supply this value in either your .env file or in your environment.\n` +
+            `See here for more info: https://err.sh/next.js/missing-env-value`);
+    }
+    return collected;
+}
+exports.collectEnv = collectEnv;
 
 
 /***/ }),
@@ -1060,7 +1083,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_document__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/document */ "./node_modules/next/document.js");
 /* harmony import */ var next_document__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_document__WEBPACK_IMPORTED_MODULE_1__);
-var _jsxFileName = "/Users/oseibonsu/Development/NextJsPractice/pages/_document.js";
+var _jsxFileName = "C:\\Users\\luke\\Development\\next-js\\HiveMind\\pages\\_document.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -1080,45 +1103,60 @@ class MyDocument extends next_document__WEBPACK_IMPORTED_MODULE_1___default.a {
 
   render() {
     return __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["Html"], {
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 11
-      },
-      __self: this
+        lineNumber: 10,
+        columnNumber: 7
+      }
     }, __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["Head"], {
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
-      },
-      __self: this
+        lineNumber: 11,
+        columnNumber: 9
+      }
     }, __jsx("link", {
       rel: "stylesheet",
       href: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css",
       integrity: "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh",
       crossorigin: "anonymous",
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 13
-      },
-      __self: this
+        lineNumber: 12,
+        columnNumber: 11
+      }
+    }), __jsx("link", {
+      href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap",
+      rel: "stylesheet",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 18,
+        columnNumber: 11
+      }
     })), __jsx("body", {
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 15
-      },
-      __self: this
+        lineNumber: 23,
+        columnNumber: 9
+      }
     }, __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["Main"], {
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 16
-      },
-      __self: this
+        lineNumber: 24,
+        columnNumber: 11
+      }
     }), __jsx(next_document__WEBPACK_IMPORTED_MODULE_1__["NextScript"], {
+      __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 17
-      },
-      __self: this
+        lineNumber: 25,
+        columnNumber: 11
+      }
     })));
   }
 
