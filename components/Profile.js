@@ -29,6 +29,7 @@ class Profile extends Component {
       Router.replace("/login");
     }
   }
+
   componentDidMount() {
     // console.log("component mounted")
     this.getTokenInfo();
@@ -42,14 +43,15 @@ class Profile extends Component {
             minHeight: "100%",
             minHeight: "100vh",
             backgroundColor: "#EF7B73",
-            textAlign: "center",
+            textAlign: "center"
           }}
         >
           <h1>welcome, {this.state.username} </h1>
-          <h2>username: {this.state.username} </h2>
 
-          <h2>email: {this.state.email} </h2>
-          <a href="/login"><button>login</button></a>
+          <h3 style={{ paddingTop: 30 }}>login with spotify</h3>
+          <a href="/login">
+            <button>login</button>
+          </a>
         </div>
       </>
     );

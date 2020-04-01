@@ -41,7 +41,6 @@ export default function Landing() {
               }}
               style={{
                 backgroundColor: "#212529",
-                color: "white",
                 width: "80px",
                 height: "45px",
                 fontSize: "18px",

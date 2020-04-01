@@ -1137,6 +1137,9 @@ class MyDocument extends next_document__WEBPACK_IMPORTED_MODULE_1___default.a {
         columnNumber: 11
       }
     })), __jsx("body", {
+      style: {
+        fontFamily: "Roboto"
+      },
       __self: this,
       __source: {
         fileName: _jsxFileName,

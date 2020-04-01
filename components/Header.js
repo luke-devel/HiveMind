@@ -23,6 +23,7 @@ export default function Header() {
               fontFamily: "Roboto",
               textAlign: "center",
               paddingTop: "20px",
+              paddingLeft:'0px',
               fontStyle: "italic",
               fontWeight: "900",
               marginBottom: "10px",
@@ -35,7 +36,7 @@ export default function Header() {
 
         <ul
           className="nav navbar-nav navbar-right"
-          
+    
         >
           <li>
             <a
@@ -46,7 +47,8 @@ export default function Header() {
                 color: "#212529",
                 fontStyle: "italic",
                 fontSize: 20,
-                paddingRight: 30
+                paddingRight: 30,
+                marginLeft:"-30px"
               }}
             >
               logout
