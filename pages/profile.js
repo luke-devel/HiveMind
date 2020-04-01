@@ -1,8 +1,13 @@
-export default function Index() {
-    return (
-      <>
-        <h1>profile</h1>
-      </>
-    );
-  }
-  
+import Footer from "../components/Footer";
+import Profile from "../components/Profile";
+import Header from "../components/Header";
+
+export default function profile() {
+  return (
+    <>
+      <Header/>
+      <Profile />
+      <Footer />
+    </>
+  );
+}

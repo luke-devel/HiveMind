@@ -1,9 +1,8 @@
-import db from "../../../models";
+import db from "../models";
 import bcrypt from "bcrypt";
-// import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 export default async function(req, res) {
-  console.log(req.body);
   switch (req.method) {
     case "POST":
       let user;
@@ -29,23 +28,24 @@ export default async function(req, res) {
         }
       } catch (e) {
         console.log('caught correct');
+        // console.log(e)
         res.end("invalid username or email");
-
       }
-    //   console.log(user);
 
       if (user) {
         const result = await bcrypt.compare(req.body.password, user.password);
         if (result) {
-          // const token = jwt.sign({ id: user.id, email: user.email }, process.env.secretKey)
-          // res.json({
-          //     id: user.id,
-          //     email: user.email,
-          //     token
-          // })
-          res.end(JSON.stringify(user));
+          const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.secretKey)
+          console.log(token)
+          res.json({
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              token
+          })
         } else {
-          res.end("login failed");
+          console.log('invalid password')
+          res.end("invalid password");
         }
     }
       break;

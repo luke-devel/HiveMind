@@ -26,14 +26,27 @@ class Login extends Component {
       userInput: this.state.userInput,
       password: this.state.password
     };
-
+    console.log(`logging in`);
     login(newUser)
       .then(res => {
-        if (res.data === "invalid username or email") {
-          Router.replace("/login");
-        } else {
-          Router.replace("/profile");
+        console.log("herenow");
+        console.log('resdata', res.data);
+
+        switch (res.data) {
+          case "invalid username or email":
+            alert("invalid username or email");
+            Router.replace("/login");
+            break;
+          case "invalid password":
+            // alert("invalid password");
+            Router.replace("/login");
+            break;
+          default:
+            console.log("replacing with /profile");
+            Router.replace("/profile");
+            break;
         }
+        
       })
       .catch(err => {
         console.log("Login Error", err);
@@ -71,7 +84,7 @@ class Login extends Component {
                 paddingTop: "20px",
                 fontStyle: "italic",
                 fontWeight: "900",
-                marginBottom: "0px",
+                marginBottom: "10px",
                 color: "#212529"
               }}
             >
@@ -135,7 +148,7 @@ class Login extends Component {
                 color: "#212529"
               }}
             >
-              Sign Up
+              Sign In
             </button>
             <p
               style={{
@@ -148,12 +161,12 @@ class Login extends Component {
                 color: "#212529"
               }}
             >
-              Already registered?{" "}
+              Not registered?{" "}
               <a
-                href="/login"
+                href="/register"
                 style={{ fontStyle: "italic", color: "#EF7B73" }}
               >
-                Sign In
+                Sign Up
               </a>
             </p>
           </form>
