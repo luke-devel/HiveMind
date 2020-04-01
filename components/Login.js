@@ -158,7 +158,8 @@ class Login extends Component {
                 fontSize: "18px",
                 textAlign: "center",
                 paddingTop: "15px",
-                color: "#212529"
+                color: "#212529",
+                marginBottom: 20
               }}
             >
               Not registered?{" "}

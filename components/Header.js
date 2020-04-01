@@ -1,51 +1,59 @@
 export default function Header() {
   return (
-    <nav
-      class="navbar navbar-default"
-      role="navigation"
-      style={{ backgroundColor: "#EF7B73" }}
-    >
-      <div class="navbar-header" style={{ padding: "40px", textAlign:"center" }}></div>
-      <a
-        class="navbar-brand"
-        href="/profile"
-        style={{
-          textAlign: "center",
-        }}
+    <div className="row" style={{ display: "block" }}>
+      <nav
+        className="navbar navbar-default"
+        role="navigation"
+        style={{ backgroundColor: "#EF7B73" }}
       >
-        <h3
+        <div
+          className="navbar-header"
+          style={{ padding: "40px", textAlign: "center" }}
+        ></div>
+        <a
+          className="navbar-brand"
+          href="/profile"
           style={{
-            fontSize: "50px",
-            fontFamily: "Roboto",
-            textAlign: "center",
-            paddingTop: "20px",
-            fontStyle: "italic",
-            fontWeight: "900",
-            marginBottom: "10px",
-            color: "#212529"
+            textAlign: "center"
           }}
         >
-          hivemind
-        </h3>
-      </a>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a
-            href="/logout"
+          <h3
             style={{
+              fontSize: "60px",
               fontFamily: "Roboto",
-              fontWeight: "900",
-              color: "#212529",
+              textAlign: "center",
+              paddingTop: "20px",
               fontStyle: "italic",
-              fontSize: 20,
-              paddingRight: 30
+              fontWeight: "900",
+              marginBottom: "10px",
+              color: "#212529"
             }}
           >
-            logout
-          </a>
-        </li>
-      </ul>
-    </nav>
+            hivemind
+          </h3>
+        </a>
+
+        <ul
+          className="nav navbar-nav navbar-right"
+          
+        >
+          <li>
+            <a
+              href="/logout"
+              style={{
+                fontFamily: "Roboto",
+                fontWeight: "900",
+                color: "#212529",
+                fontStyle: "italic",
+                fontSize: 20,
+                paddingRight: 30
+              }}
+            >
+              logout
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }

@@ -45,7 +45,7 @@ class Profile extends Component {
             textAlign: "center",
           }}
         >
-          <h1>profile</h1>
+          <h1>welcome, {this.state.username} </h1>
           <h2>username: {this.state.username} </h2>
 
           <h2>email: {this.state.email} </h2>
