@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Router from "next/router";
 import { login } from "./UserFunctions";
+import Border from "./Border";
+import jwt_decode from "jwt-decode";
 
 class Login extends Component {
   constructor() {
@@ -16,6 +18,28 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  // checks if user already has been logged in with JWT token in localStorage
+  getTokenInfo() {
+    const token = localStorage.usertoken;
+
+    if (token) {
+      try {
+        console.log(token);
+        console.log("hello");
+        const decoded = jwt_decode(token);
+        console.log("hello2");
+
+        Router.replace("/profile");
+      } catch {
+        // err in JWT token. does nothing
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.getTokenInfo();
+  }
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -29,9 +53,6 @@ class Login extends Component {
     console.log(`logging in`);
     login(newUser)
       .then(res => {
-        console.log("herenow");
-        console.log('resdata', res.data);
-
         switch (res.data) {
           case "invalid username or email":
             alert("invalid username or email");
@@ -46,7 +67,6 @@ class Login extends Component {
             Router.replace("/profile");
             break;
         }
-        
       })
       .catch(err => {
         console.log("Login Error", err);
@@ -76,21 +96,14 @@ class Login extends Component {
               paddingBottom: "0px"
             }}
           >
-            <h3
-              style={{
-                fontSize: "50px",
-                fontFamily: "Roboto",
-                textAlign: "center",
-                paddingTop: "20px",
-                fontStyle: "italic",
-                fontWeight: "900",
-                marginBottom: "10px",
-                color: "#212529"
+            <Border
+              border={{
+                title: "hivemind",
+                width: "28vh",
+                fontSize: "6vh",
+                borderSize: "5px"
               }}
-            >
-              hivemind
-            </h3>
-
+            />
             <div className="form-group">
               <label
                 htmlFor="email"

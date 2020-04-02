@@ -1,4 +1,5 @@
 import Router from "next/router";
+import Border from "./Border";
 
 export default function Landing() {
   return (
@@ -12,26 +13,18 @@ export default function Landing() {
       }}
     >
       <div className="container">
+        <Border
+          border={{
+            title: "hivemind",
+            width: "30%",
+            fontSize: "70px",
+            borderSize: "5px"
+          }}
+        />
         <div className="row">
-          <div className="col-12" style={{ textAlign: "center" }}>
-            {/* <h1 style={{ fontFamily: "Roboto",color: "#212529", fontWeight: "bold" }}>
-              welcome to
-            </h1> */}
-            <h1
-              style={{
-                fontFamily: "Roboto",
-                fontSize: "75px",
-                fontStyle: "italic",
-                fontWeight: "900"
-              }}
-            >
-              hivemind
-            </h1>
-          </div>
-
           <div
             className="col-12"
-            style={{ textAlign: "center", marginTop: "15px" }}
+            style={{ textAlign: "center", paddingTop: "30px" }}
           >
             <button
               type="button"
@@ -45,9 +38,9 @@ export default function Landing() {
                 height: "45px",
                 fontSize: "18px",
                 fontWeight: "600",
-                fontStyle:"italic",
-                fontFamily:"roboto",
-                color:"#EF7B73"
+                fontStyle: "italic",
+                fontFamily: "roboto",
+                color: "#EF7B73"
               }}
             >
               Login

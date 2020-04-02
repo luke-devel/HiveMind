@@ -7,12 +7,12 @@ export default function Index() {
       <div
         style={{
           minHeight: "100%",
-          minHeight: "100vh",
+          minHeight: "96vh",
           backgroundColor: "#EF7B73",
-          marginTop: "-16px"
+          border: "5px solid #212529"
         }}
       >
-        <div style={{ paddingTop: "15vh" }}>
+        <div style={{ paddingTop: "10vh" }}>
           <Login />
         </div>
       </div>

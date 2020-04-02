@@ -1,5 +1,7 @@
 'use strict';
 const user=  require('./User')
+const userdata=  require('./UserData')
+
 console.log(user)
 const Sequelize = require('sequelize');
 
@@ -11,7 +13,8 @@ let sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, proc
 // }
 
 const db = {
-    user: user(sequelize, Sequelize)
+    user: user(sequelize, Sequelize),
+    userdata: userdata(sequelize, Sequelize)
 };
 
 Object.keys(db).forEach(modelName => {

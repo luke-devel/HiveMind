@@ -16,7 +16,6 @@ class User extends Component {
 
   render() {
     const { user, playlist, access_token, topArtists } = this.props;
-    console.log(topArtists.items[1].name);
     
     return (
       <>
@@ -38,6 +37,7 @@ class User extends Component {
 }
 
 User.getInitialProps = async function(context) {
+  console.log('yo')
   const { access_token } = context.query;
   const res = await fetch(spotifyProfileURL + access_token);
   const user = await res.json();

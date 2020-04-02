@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Router from "next/router";
 import { register } from "./UserFunctions";
+import Border from "./Border";
+import jwt_decode from "jwt-decode";
 
 class Register extends Component {
   constructor() {
@@ -14,6 +16,27 @@ class Register extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+   // checks if user already has been logged in with JWT token in localStorage
+   getTokenInfo() {
+    const token = localStorage.usertoken;
+    if (token) {
+      try {
+        const decoded = jwt_decode(token);
+        this.setState({
+          username: decoded.username,
+          email: decoded.email
+        });
+        Router.replace("/profile");
+      } catch {
+        // err in JWT token. does nothing
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.getTokenInfo();
   }
 
   onChange(e) {
@@ -60,21 +83,14 @@ class Register extends Component {
               paddingBottom: "0px"
             }}
           >
-            <h3
-              style={{
-                fontSize: "50px",
-                fontFamily: "Roboto",
-                textAlign: "center",
-                paddingTop: "20px",
-                fontStyle: "italic",
-                fontWeight: "900",
-                marginBottom: "0px",
-                color:"#212529"
+            <Border
+              border={{
+                title: "hivemind",
+                width: "28vh",
+                fontSize: "6vh",
+                borderSize: "5px"
               }}
-            >
-              hivemind
-            </h3>
-
+            />
             <div className="form-group">
               <label
                 htmlFor="username"
@@ -82,7 +98,7 @@ class Register extends Component {
                   fontFamily: "Roboto",
                   fontWeight: "500",
                   fontSize: "18px",
-                  color:"#212529"
+                  color: "#212529"
                 }}
               >
                 username
@@ -103,7 +119,7 @@ class Register extends Component {
                   fontFamily: "Roboto",
                   fontWeight: "500",
                   fontSize: "18px",
-                  color:"#212529"
+                  color: "#212529"
                 }}
               >
                 email
@@ -125,7 +141,7 @@ class Register extends Component {
                   fontFamily: "Roboto",
                   fontWeight: "500",
                   fontSize: "18px",
-                  color:"#212529"
+                  color: "#212529"
                 }}
               >
                 password
@@ -149,8 +165,8 @@ class Register extends Component {
                 fontWeight: "900",
                 fontStyle: "italic",
                 fontSize: "25px",
-                marginTop:"20px",
-                color:"#212529"
+                marginTop: "20px",
+                color: "#212529"
               }}
             >
               Sign Up
@@ -163,7 +179,7 @@ class Register extends Component {
                 fontSize: "18px",
                 textAlign: "center",
                 paddingTop: "15px",
-                color:"#212529"
+                color: "#212529"
               }}
             >
               Already registered?{" "}

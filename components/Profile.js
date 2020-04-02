@@ -1,6 +1,8 @@
 import React, { Component, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import Router from "next/router";
+import Border from "./Border";
+import { spotifyWebApiURL } from "../constants/constants";
 
 class Profile extends Component {
   constructor() {
@@ -12,27 +14,32 @@ class Profile extends Component {
       showModal: false
     };
   }
-  getTokenInfo() {
-    console.log(`hello in profile component`);
-    const token = localStorage.usertoken;
-    console.log("token", token);
 
+  // checks if user already has been logged in with JWT token in localStorage
+  getTokenInfo() {
+    const token = localStorage.usertoken;
     if (token) {
-      const decoded = jwt_decode(token);
-      console.log("decoded token", decoded);
-      this.setState({
-        username: decoded.username,
-        email: decoded.email
-      });
+      try {
+        const decoded = jwt_decode(token);
+        this.setState({
+          username: decoded.username,
+          email: decoded.email
+        });
+      } catch {
+        Router.replace("/login");
+      }
     } else {
-      // token not found, back to login
+      // token not found in localStorage, back to login
       Router.replace("/login");
     }
   }
 
   componentDidMount() {
-    // console.log("component mounted")
     this.getTokenInfo();
+  }
+
+  goToSpotify() {
+    document.location = spotifyWebApiURL;
   }
 
   render() {
@@ -43,14 +50,39 @@ class Profile extends Component {
             minHeight: "100%",
             minHeight: "100vh",
             backgroundColor: "#EF7B73",
-            textAlign: "center"
+            textAlign: "center",
+            padding: "50px",
+            border: "5px solid #212529",
+            borderTopWidth: 0
           }}
         >
-          <h1>welcome, {this.state.username} </h1>
+          <h1 style={{ fontStyle: "italic" }}>
+            welcome, {this.state.username}.{" "}
+          </h1>
 
-          <h3 style={{ paddingTop: 30 }}>login with spotify</h3>
-          <a href="/login">
-            <button>login</button>
+          <h3 style={{ paddingTop: 20, fontStyle: "italic" }}>
+            First, lets add some data to your account.
+          </h3>
+          <a
+            onClick={this.goToSpotify}
+            style={{
+              fontFamily: "Roboto",
+              fontWeight: "900",
+              color: "#212529",
+              fontStyle: "italic",
+              paddingRight: 30,
+              marginLeft: "-30px",
+              cursor:"pointer"
+            }}
+          >
+            <Border
+              border={{
+                title: "login with spotify",
+                width: "30vh",
+                borderSize: "5px",
+                fontSize: "30px"
+              }}
+            />
           </a>
         </div>
       </>

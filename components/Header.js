@@ -1,61 +1,83 @@
-export default function Header() {
-  return (
-    <div className="row" style={{ display: "block" }}>
-      <nav
-        className="navbar navbar-default"
-        role="navigation"
-        style={{ backgroundColor: "#EF7B73" }}
+import Border from "./Border";
+import React, { Component } from "react";
+import Router from "next/router";
+
+class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      errors: {}
+    };
+
+    this.onLogout = this.onLogout.bind(this);
+  }
+// deleting JWT token from localStorage and logging out.
+  onLogout(e) {
+    e.preventDefault();
+    localStorage.removeItem("usertoken");
+    Router.replace("/");
+  }
+  render() {
+    return (
+      <div
+        className="row"
+        style={{ display: "block", border: "5px solid #212529", margin: 0 }}
       >
-        <div
-          className="navbar-header"
-          style={{ padding: "40px", textAlign: "center" }}
-        ></div>
-        <a
-          className="navbar-brand"
-          href="/profile"
-          style={{
-            textAlign: "center"
-          }}
+        <nav
+          className="navbar navbar-default"
+          role="navigation"
+          style={{ backgroundColor: "#EF7B73" }}
         >
-          <h3
+          <div
+            className="navbar-header"
+            style={{ padding: "40px", textAlign: "center" }}
+          ></div>
+          <a
+            className="navbar-brand"
+            href="/profile"
             style={{
-              fontSize: "60px",
-              fontFamily: "Roboto",
-              textAlign: "center",
-              paddingTop: "20px",
-              paddingLeft:'0px',
-              fontStyle: "italic",
-              fontWeight: "900",
-              marginBottom: "10px",
-              color: "#212529"
+              textAlign: "center"
             }}
           >
-            hivemind
-          </h3>
-        </a>
-
-        <ul
-          className="nav navbar-nav navbar-right"
-    
-        >
-          <li>
-            <a
-              href="/logout"
-              style={{
-                fontFamily: "Roboto",
-                fontWeight: "900",
-                color: "#212529",
-                fontStyle: "italic",
-                fontSize: 20,
-                paddingRight: 30,
-                marginLeft:"-30px"
+            <Border
+              border={{
+                title: "hivemind",
+                width: "110%",
+                fontSize: "70px",
+                borderSize: "5px"
               }}
-            >
-              logout
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+            />
+          </a>
+
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <a
+                href="/"
+                onClick={this.onLogout}
+                style={{
+                  fontFamily: "Roboto",
+                  fontWeight: "900",
+                  color: "#212529",
+                  fontStyle: "italic",
+                  paddingRight: 30,
+                  marginLeft: "-30px"
+                }}
+              >
+                <Border
+                  border={{
+                    title: "logout",
+                    width: "110%",
+                    borderSize: "3px",
+                    fontSize: "20px"
+                  }}
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 }
+
+export default Header;
