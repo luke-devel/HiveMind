@@ -2,11 +2,13 @@ import React, { Component, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import Router from "next/router";
 import Border from "./Border";
+import AddData from "./AddData";
 import { spotifyWebApiURL } from "../constants/constants";
+import { render } from "react-dom";
 
 class Profile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       email: "",
@@ -42,6 +44,10 @@ class Profile extends Component {
     document.location = spotifyWebApiURL;
   }
 
+  getToken(){
+    return localStorage.getItem("spotifyAccessToken");
+  }
+
   render() {
     return (
       <>
@@ -57,33 +63,40 @@ class Profile extends Component {
           }}
         >
           <h1 style={{ fontStyle: "italic" }}>
-            welcome, {this.state.username}.{" "}
+            welcome, {this.state.username}!{" "}
           </h1>
-
-          <h3 style={{ paddingTop: 20, fontStyle: "italic" }}>
-            First, lets add some data to your account.
-          </h3>
-          <a
-            onClick={this.goToSpotify}
-            style={{
-              fontFamily: "Roboto",
-              fontWeight: "900",
-              color: "#212529",
-              fontStyle: "italic",
-              paddingRight: 30,
-              marginLeft: "-30px",
-              cursor:"pointer"
-            }}
-          >
-            <Border
-              border={{
-                title: "login with spotify",
-                width: "30vh",
-                borderSize: "5px",
-                fontSize: "30px"
-              }}
-            />
-          </a>
+          {!this.getToken ? (
+            <AddData />
+          ) : (
+            <div>
+              <h3 style={{ paddingTop: 40, fontStyle: "italic", fontSize: 30 }}>
+                Now your Spotify account is linked.
+              </h3>
+              <a
+                href="/profile/choosedata"
+                style={{
+                  fontFamily: "Roboto",
+                  fontWeight: "900",
+                  color: "#212529",
+                  fontStyle: "italic",
+                  paddingRight: 30,
+                  marginLeft: "-30px",
+                  cursor: "pointer"
+                }}
+              >
+                <Border
+                
+                  border={{
+                    title:
+                      "choose your top artists and tracks for your profile",
+                    width: "30vh",
+                    borderSize: "5px",
+                    fontSize: "30px"
+                  }}
+                />
+              </a>
+            </div>
+          )}
         </div>
       </>
     );

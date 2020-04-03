@@ -28,7 +28,7 @@ class Register extends Component {
           username: decoded.username,
           email: decoded.email
         });
-        Router.replace("/profile");
+        Router.replace('/profile/landing');
       } catch {
         // err in JWT token. does nothing
       }

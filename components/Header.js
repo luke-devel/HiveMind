@@ -34,7 +34,7 @@ class Header extends Component {
           ></div>
           <a
             className="navbar-brand"
-            href="/profile"
+            href="/profile/landing"
             style={{
               textAlign: "center"
             }}

@@ -25,11 +25,8 @@ class Login extends Component {
     if (token) {
       try {
         console.log(token);
-        console.log("hello");
         const decoded = jwt_decode(token);
-        console.log("hello2");
-
-        Router.replace("/profile");
+        Router.replace('/profile/landing');
       } catch {
         // err in JWT token. does nothing
       }
@@ -59,12 +56,11 @@ class Login extends Component {
             Router.replace("/login");
             break;
           case "invalid password":
-            // alert("invalid password");
             Router.replace("/login");
             break;
           default:
-            console.log("replacing with /profile");
-            Router.replace("/profile");
+            console.log("replacing with '/profile/landing'");
+            Router.replace('/profile/landing');
             break;
         }
       })

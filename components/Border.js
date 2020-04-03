@@ -10,7 +10,7 @@ function Border({ border }) {
     marginBottom: "0px"
   };
   return (
-    <div style={{ padding: "15px" }}>
+    <div>
       <div
         className="center"
         style={{

@@ -2,46 +2,51 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import { spotifyWebApiURL } from "../../constants/constants";
 import Header from "../../components/Header";
+import Border from "../../components/Border";
 
 export default function Login() {
-  const [access_token, setAccess_token] = useState('');
+  const [SpotifyAccessToken, setSpotifyAccessToken] = useState("xxx");
 
   useEffect(() => {
-    if (localStorage.getItem("spotifyAccessToken")) {
-      // console.log('og', e.getItem("spotifyAccessToken"))
-      const token = localStorage.getItem("spotifyAccessToken")
-      // console.log('at', token)
-      // console.log(`found it`);
-      // console.log({access_token});
-      // Router.push({
-      //   pathname: "/spotify/user",
-      //   query: token
-      // });
-      console.log('try now')
-      setToken(token);
+    let url = window.location.href;
+    if (url.indexOf("_token") > -1) {
+      let tempToken = url
+        .split("_token=")[1]
+        .split("&")[0]
+        .trim();
+      setSpotifyAccessToken(tempToken);
     }
-    console.log(`done use effect`);
-  }, []);
-
-
-  const setToken = (token) => {
-    console.log('heres the token', token)
-    setAccess_token('123')
-    console.log('heres the prop token', {access_token})
-
-  }
+    localStorage.setItem("spotifyAccessToken", SpotifyAccessToken);
+    Router.replace('/profile/landing')
+  });
 
   return (
-    <>
-      <Header />
+    <div
+      style={{
+        backgroundColor: "#EF7B73",
+        height: "100vh",
+        border: "5px solid #212529"
+      }}
+    >
       <div
         style={{
-          minHeight: "100%",
-          minHeight: "100vh",
-          alignItems: "center",
-          backgroundColor: "#EF7B73"
+          backgroundColor: "#EF7B73",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          WebkitTransform: "translate(-50%, -50%)",
+          transform: "translate(-50%, -50%)"
         }}
-      ></div>
-    </>
+      >
+        <Border
+          border={{
+            title: "hivemind",
+            width: "30vh",
+            borderSize: "5px",
+            fontSize: "60px"
+          }}
+        />
+      </div>
+    </div>
   );
 }

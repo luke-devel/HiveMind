@@ -20,11 +20,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/profile": [
+    "/profile/choosedata": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/spotify/login": [
+    "/profile/landing": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
