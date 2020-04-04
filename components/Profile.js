@@ -3,14 +3,14 @@ import jwt_decode from "jwt-decode";
 import Router from "next/router";
 import Border from "./Border";
 import AddData from "./AddData";
-import { spotifyWebApiURL } from "../constants/constants";
+
 export default function Profile() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [spotifyToken, setSpotifyToken] = useState("");
 
   useEffect(() => {
-    console.log("sup");
+    // console.log("sup");
     setToken();
     getTokenInfo();
   }, [0]);
@@ -20,7 +20,7 @@ export default function Profile() {
       const token = localStorage.usertoken;
       const decoded = jwt_decode(token);
       setUsername(decoded.username);
-      setEmail(decoded.password);
+      setEmail(decoded.email);
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +28,7 @@ export default function Profile() {
 
   function setToken() {
     setSpotifyToken(localStorage.getItem("spotifyAccessToken"));
-    console.log("set");
+    // console.log("set");
   }
 
   function checkToken() {

@@ -11,10 +11,11 @@ class Header extends Component {
 
     this.onLogout = this.onLogout.bind(this);
   }
-// deleting JWT token from localStorage and logging out.
+  // deleting JWT token from localStorage and logging out.
   onLogout(e) {
     e.preventDefault();
     localStorage.removeItem("usertoken");
+    localStorage.removeItem("spotifyAccessToken");
     Router.replace("/");
   }
   render() {

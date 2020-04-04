@@ -4,8 +4,11 @@ import Header from "../../components/Header";
 // DataBody to be worked on soon
 import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
+import fetch from "isomorphic-unfetch";
+import axios from "axios";
+export default function ChooseData({ data }) {
+  console.log(data);
 
-export default function ChooseData() {
   const bodyStyle = {
     fontFamily: "sans-serif",
     margin: "0",
@@ -44,15 +47,28 @@ export default function ChooseData() {
             }}
           >
             <div></div>
-            <GetTopArtists />
+            <GetTopArtists GetTopArtists={{ obj: data }} />
           </main>
           <footer
             style={{ padding: "0px", textAlign: "center", gridArea: "footer" }}
           >
-            <Footer />
+            {/* <Footer /> */}
           </footer>
         </div>
       </div>
     </>
   );
 }
+
+ChooseData.getInitialProps = async context => {
+  // console.log(context);
+  // const artistsObj = await fetch(
+  //   `http://localhost:3000/api/spotify/dataforfetch`
+  // ).then(data => console.log(data));
+
+  const artistsObj = await axios.get(
+    "http://localhost:3000/api/spotify/dataforfetch"
+  );
+
+  return { data: artistsObj.data };
+};

@@ -1,6 +1,6 @@
 import db from "../models";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 export default async function(req, res) {
   switch (req.method) {
@@ -14,9 +14,9 @@ export default async function(req, res) {
             }
           });
           if (!user) {
-              throw err;
+            throw err;
           }
-        } catch(e) {
+        } catch (e) {
           user = await db.user.findOne({
             where: {
               username: req.body.userInput
@@ -24,10 +24,10 @@ export default async function(req, res) {
           });
           if (!user) {
             throw err;
-        }
+          }
         }
       } catch (e) {
-        console.log('caught correct');
+        console.log("caught correct");
         // console.log(e)
         res.end("invalid username or email");
       }
@@ -35,19 +35,22 @@ export default async function(req, res) {
       if (user) {
         const result = await bcrypt.compare(req.body.password, user.password);
         if (result) {
-          const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.secretKey)
-          console.log(token)
+          const token = jwt.sign(
+            { id: user.id, username: user.username, email: user.email },
+            process.env.secretKey
+          );
+          // console.log(token)
           res.json({
-              id: user.id,
-              username: user.username,
-              email: user.email,
-              token
-          })
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            token
+          });
         } else {
-          console.log('invalid password')
+          console.log("invalid password");
           res.end("invalid password");
         }
-    }
+      }
       break;
 
     default:

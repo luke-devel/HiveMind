@@ -3,21 +3,41 @@ import Router from "next/router";
 import React, { useState, useEffect } from "react";
 import ArtistList from "./ArtistList";
 import fetch from "isomorphic-unfetch";
+import jwt_decode from "jwt-decode";
 
-export default function() {
-  const [addedArtistsList, setAddedArtistsList] = useState({ title: "hello" });
+export default function GetTopArtists({ GetTopArtists }) {
+  console.log("hh", GetTopArtists);
+
+  const [addedArtistsList, setAddedArtistsList] = useState("");
+  const [email, setEmail] = useState("");
+  const [watch, setWatch] = useState("");
+
   // *pulls data from spotify api using users client secret to mysql database*
   // *stored in addedArtistsList* - runs each page load*
   useEffect(() => {
-    // Update the document title using the browser API
-    console.log("yoo");
+    try {
+      const token = localStorage.getItem("usertoken");
+      const decoded = jwt_decode(token);
+      setEmail(decoded.email);
+      console.log("email", email);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [0]);
+
+  async function refreshDatabase() {
     fetch(`http://localhost:3000/api/spotify/addtopartists`, {
       method: "POST",
       headers: {
-        spotifyToken: localStorage.spotifyAccessToken
+        spotifyToken: localStorage.spotifyAccessToken,
+        userEmail: email
       }
     });
-  });
+    setWatch("1");
+    setTimeout(function() {
+      Router.replace("/profile/choosedata");
+    }, 3000);
+  }
 
   return (
     <div
@@ -56,19 +76,39 @@ export default function() {
 
         <div className="row">
           <div className="col-12">
-            <h3
-              style={{
-                textAlign: "center",
-                paddingTop: 10,
-                fontWeight: 600,
-                fontStyle: "bold",
-                fontSize: 25
-              }}
-            >
-              Here are your top artists pulled from Spotify. Click to add to an
-              artist to your profile:
-            </h3>
-            <ArtistList ArtistList={addedArtistsList} />
+            {addedArtistsList || watch ? (
+              <h3
+                style={{
+                  textAlign: "center",
+                  paddingTop: 10,
+                  fontWeight: 600,
+                  fontStyle: "bold",
+                  fontSize: 25
+                }}
+              >
+                Here are your top artists pulled from Spotify. Click to add to
+                an artist to your profile:
+              </h3>
+            ) : (
+              <a
+                className="navbar-brand"
+                onClick={refreshDatabase}
+                style={{
+                  textAlign: "center",
+                  cursor: "pointer"
+                }}
+              >
+                <Border
+                  border={{
+                    title: "click to populate database",
+                    width: "60va",
+                    fontSize: "25px",
+                    borderSize: "3px"
+                  }}
+                />
+              </a>
+            )}
+            <ArtistList ArtistList={GetTopArtists} />
           </div>
         </div>
       </div>
