@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 export default function profile() {
   return (
     <>
-      <Header/>
+      <Header />
       <Profile />
       <Footer />
     </>

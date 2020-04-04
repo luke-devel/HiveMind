@@ -22,11 +22,11 @@ class Login extends Component {
   getTokenInfo() {
     const token = localStorage.usertoken;
 
-    if (token) {
+    if (token && localStorage.SpotifyAccessToken) {
       try {
         console.log(token);
         const decoded = jwt_decode(token);
-        Router.replace('/profile/landing');
+        Router.replace("/profile/landing");
       } catch {
         // err in JWT token. does nothing
       }
@@ -60,7 +60,7 @@ class Login extends Component {
             break;
           default:
             console.log("replacing with '/profile/landing'");
-            Router.replace('/profile/landing');
+            Router.replace("/profile/landing");
             break;
         }
       })

@@ -1,7 +1,11 @@
 import Border from "./Border";
-import { spotifyWebApiURL } from "../constants/constants";
 
 export default function AddData() {
+  const scopes =
+    "user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played+user-library-read";
+
+  const spotifyWebApiURL = `https://accounts.spotify.com/authorize/?client_id=a95607d988d845b8aa8c38e6c722e09a&response_type=token&redirect_uri=http://localhost:3000/spotify/login&scope=${scopes}`;
+
   function goToSpotify() {
     document.location = spotifyWebApiURL;
   }
@@ -35,3 +39,9 @@ export default function AddData() {
     </div>
   );
 }
+
+// AddData.getInitialProps = async ctx => {
+//   const redirectURI = process.env.SPOTIFYREDIRECTURI;
+//   const clientID = process.env.SPOTIFYCLIENTID;
+//   return { redirectURI: redirectURI, clientID: clientID };
+// };

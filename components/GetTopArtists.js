@@ -6,12 +6,17 @@ import fetch from "isomorphic-unfetch";
 
 export default function() {
   const [addedArtistsList, setAddedArtistsList] = useState({ title: "hello" });
-
   // *pulls data from spotify api using users client secret to mysql database*
   // *stored in addedArtistsList* - runs each page load*
   useEffect(() => {
     // Update the document title using the browser API
     console.log("yoo");
+    fetch(`http://localhost:3000/api/spotify/addtopartists`, {
+      method: "POST",
+      headers: {
+        spotifyToken: localStorage.spotifyAccessToken
+      }
+    });
   });
 
   return (
@@ -30,7 +35,8 @@ export default function() {
                 textAlign: "center",
                 textDecoration: "underline",
                 fontWeight: 600,
-                fontStyle: "italic"
+                fontStyle: "italic",
+                paddingTop: 10
               }}
             >
               Your Top Artists

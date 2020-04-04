@@ -1,19 +1,15 @@
 import bcrypt from "bcrypt";
 import db from "../models";
+import fetch from "isomorphic-unfetch";
+import GetUsersTopArtists from "../../../js/GetUsersTopArtists";
 
 export default async function(req, res) {
-  // const user = await db.user.create({
-  //   name: req.body.name,
-  //   username: req.body.username,
-  //   email: req.body.email,
-  //   password: hash
-  // });
+  console.log("now on server-side");
+  let topArtists;
+  setTimeout(async function() {
+    topArtists = await GetUsersTopArtists(req.headers.spotifytoken);
+  }, 3000);
+  console.log(topArtists);
 
-  // if (user.errno === 1062) {
-  //   user = {
-  //     errno: 1062,
-  //     errormessage: "Email already exists"
-  //   };
-  // }
   res.end("hello");
 }
