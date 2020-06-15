@@ -10,11 +10,11 @@ let sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
-    operatorsAliases: false
+    operatorsAliases: false,
   }
 );
 
-export default async function GetUsersTopArtists(token, email) {
+export default async function GetUsersTopArtists(token, useremail) {
   try {
     const topArtists = await axios
       .get(
@@ -26,28 +26,28 @@ export default async function GetUsersTopArtists(token, email) {
             Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-            email: email
-          }
+          },
         }
       )
-      .then(res => {
+      .then((res) => {
         // console.log(res.data.items);
         const artistObject = res.data.items.map(
           ({ name, genres, images }, i) => ({
             id: i + 1,
             name,
             genres,
-            images
+            images,
           })
         );
         return artistObject;
       })
-      .then(async artistObject => {
-        console.log(artistObject);
+      .then(async (artistObject) => {
+        // console.log(artistObject);
+        console.log("now in GetUsersTopArtists");
         const id = await sequelize.query(
-          `SELECT id FROM hivemind.users WHERE email='${email}'`,
+          `SELECT id FROM hivemind.users WHERE email='${useremail}'`,
           {
-            type: QueryTypes.SELECT
+            type: QueryTypes.SELECT,
           }
         );
         // console.log("id", id[0].id);
@@ -65,12 +65,12 @@ export default async function GetUsersTopArtists(token, email) {
         // );
         await db.userdata.create({
           userid: id[0].id,
-          topartists: JSON.stringify(artistObject)
+          topartists: JSON.stringify(artistObject),
         });
         console.log("artist object written to db");
       })
 
-      .catch(function(error) {
+      .catch(function (error) {
         // handle error
         console.log(error);
       });

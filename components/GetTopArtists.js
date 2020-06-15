@@ -6,7 +6,7 @@ import fetch from "isomorphic-unfetch";
 import jwt_decode from "jwt-decode";
 
 export default function GetTopArtists({ GetTopArtists }) {
-  console.log("hh", GetTopArtists);
+  // console.log("hh", GetTopArtists);
 
   const [addedArtistsList, setAddedArtistsList] = useState("");
   const [email, setEmail] = useState("");
@@ -30,11 +30,11 @@ export default function GetTopArtists({ GetTopArtists }) {
       method: "POST",
       headers: {
         spotifyToken: localStorage.spotifyAccessToken,
-        userEmail: email
-      }
+        userEmail: email,
+      },
     });
     setWatch("1");
-    setTimeout(function() {
+    setTimeout(function () {
       Router.replace("/profile/choosedata");
     }, 3000);
   }
@@ -44,7 +44,7 @@ export default function GetTopArtists({ GetTopArtists }) {
       style={{
         minHeight: "100%",
         backgroundColor: "#EF7B73",
-        borderTopWidth: 0
+        borderTopWidth: 0,
       }}
     >
       <div className="container">
@@ -56,7 +56,7 @@ export default function GetTopArtists({ GetTopArtists }) {
                 textDecoration: "underline",
                 fontWeight: 600,
                 fontStyle: "italic",
-                paddingTop: 10
+                paddingTop: 10,
               }}
             >
               Your Top Artists
@@ -83,7 +83,7 @@ export default function GetTopArtists({ GetTopArtists }) {
                   paddingTop: 10,
                   fontWeight: 600,
                   fontStyle: "bold",
-                  fontSize: 25
+                  fontSize: 25,
                 }}
               >
                 Here are your top artists pulled from Spotify. Click to add to
@@ -95,7 +95,7 @@ export default function GetTopArtists({ GetTopArtists }) {
                 onClick={refreshDatabase}
                 style={{
                   textAlign: "center",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <Border
@@ -103,7 +103,7 @@ export default function GetTopArtists({ GetTopArtists }) {
                     title: "click to populate database",
                     width: "60va",
                     fontSize: "25px",
-                    borderSize: "3px"
+                    borderSize: "3px",
                   }}
                 />
               </a>

@@ -23,10 +23,6 @@
     "/profile/choosedata": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
-    ],
-    "/profile/landing": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
     ]
   }
 }

@@ -6,8 +6,9 @@ import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
+
 export default function ChooseData({ data }) {
-  console.log(data);
+  // console.log("data", data); // prints artist string
 
   const bodyStyle = {
     fontFamily: "sans-serif",
@@ -17,7 +18,7 @@ export default function ChooseData({ data }) {
     gridTemplateRows: "auto 70px",
     gridTemplateAreas: `
       "main"
-      "footer"`
+      "footer"`,
   };
 
   const bodyNavigation = {
@@ -28,7 +29,7 @@ export default function ChooseData({ data }) {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: " center",
-    height: "100%"
+    height: "100%",
   };
   return (
     <>
@@ -43,7 +44,7 @@ export default function ChooseData({ data }) {
               backgroundColor: "#EF7B73",
               border: "5px solid #212529",
               borderTopWidth: 0,
-              height: "100vh"
+              height: "100vh",
             }}
           >
             <div></div>
@@ -60,14 +61,28 @@ export default function ChooseData({ data }) {
   );
 }
 
-ChooseData.getInitialProps = async context => {
-  // console.log(context);
-  // const artistsObj = await fetch(
-  //   `http://localhost:3000/api/spotify/dataforfetch`
-  // ).then(data => console.log(data));
+ChooseData.getInitialProps = async (context) => {
+  // need to retireve user email for data fetch
+  console.log("context", context);
+  let email = "xxx";
+  // try {
+  //   const token = localStorage.getItem("usertoken");
+  //   const decoded = jwt_decode(token);
+  //   email = decoded.email;
+  //   console.log("user email:  ", email);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   const artistsObj = await axios.get(
-    "http://localhost:3000/api/spotify/dataforfetch"
+    "http://localhost:3000/api/spotify/dataforfetch",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        useremail: email,
+      },
+    }
   );
 
   return { data: artistsObj.data };
