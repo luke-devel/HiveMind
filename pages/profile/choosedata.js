@@ -4,10 +4,13 @@ import Header from "../../components/Header";
 // DataBody to be worked on soon
 import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
+import GetUsersTopArtists from "../../js/GetUsersTopArtists";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+const { QueryTypes, Sequelize } = require("sequelize");
 
-export default function ChooseData({ data }) {
+export default function ChooseData({ artistArray }) {
   // console.log("data", data); // prints artist string
 
   const bodyStyle = {
@@ -48,42 +51,37 @@ export default function ChooseData({ data }) {
             }}
           >
             <div></div>
-            <GetTopArtists GetTopArtists={{ obj: data }} />
+            <GetTopArtists artistArray={artistArray} />
           </main>
           <footer
             style={{ padding: "0px", textAlign: "center", gridArea: "footer" }}
-          >
-            {/* <Footer /> */}
-          </footer>
+          ></footer>
         </div>
       </div>
     </>
   );
 }
 
-ChooseData.getInitialProps = async (context) => {
-  // need to retireve user email for data fetch
-  console.log("context", context);
-  let email = "xxx";
-  // try {
-  //   const token = localStorage.getItem("usertoken");
-  //   const decoded = jwt_decode(token);
-  //   email = decoded.email;
-  //   console.log("user email:  ", email);
-  // } catch (error) {
-  //   console.log(error);
-  // }
-
-  const artistsObj = await axios.get(
-    "http://localhost:3000/api/spotify/dataforfetch",
-    {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        useremail: email,
-      },
-    }
-  );
-
-  return { data: artistsObj.data };
+// needs to not fetch unless data is empty for user
+ChooseData.getInitialProps = async function (ctx) {
+  await GetUsersTopArtists("token", "frank@gmail.com");
+  // console.log(ctx.req.headers);
+  const token = ctx.req.headers.cookie.slice(6);
+  const decoded = await jwt_decode(token);
+  console.log(decoded.email);
+  let propData;
+  await fetch("http://localhost:3000/api/spotify/dataforfetch", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      useremail: decoded.email,
+    },
+    credentials: "same-origin",
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      propData = data;
+    })
+    .catch((err) => console.log(err));
+  return { artistArray: propData };
 };

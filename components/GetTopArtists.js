@@ -3,29 +3,21 @@ import Router from "next/router";
 import React, { useState, useEffect } from "react";
 import ArtistList from "./ArtistList";
 import fetch from "isomorphic-unfetch";
-import jwt_decode from "jwt-decode";
 
-export default function GetTopArtists({ GetTopArtists }) {
+export default function GetTopArtists({ artistArray }) {
   // console.log("hh", GetTopArtists);
 
-  const [addedArtistsList, setAddedArtistsList] = useState("");
+  const [addedArtistsList, setAddedArtistsList] = useState(artistArray);
   const [email, setEmail] = useState("");
   const [watch, setWatch] = useState("");
 
   // *pulls data from spotify api using users client secret to mysql database*
   // *stored in addedArtistsList* - runs each page load*
-  useEffect(() => {
-    try {
-      const token = localStorage.getItem("usertoken");
-      const decoded = jwt_decode(token);
-      setEmail(decoded.email);
-      console.log("email", email);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [0]);
 
   async function refreshDatabase() {
+    // to add:
+    //        if statement to overwrite existing top artists already stored in db, if present
+    console.log("emailemail:", email);
     fetch(`http://localhost:3000/api/spotify/addtopartists`, {
       method: "POST",
       headers: {
@@ -108,7 +100,7 @@ export default function GetTopArtists({ GetTopArtists }) {
                 />
               </a>
             )}
-            <ArtistList ArtistList={GetTopArtists} />
+            <ArtistList artistArray={artistArray} />
           </div>
         </div>
       </div>

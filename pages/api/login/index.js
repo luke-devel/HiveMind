@@ -2,7 +2,12 @@ import db from "../models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export default async function(req, res) {
+export default async function (req, res) {
+  const cookieEtc =
+    process.env.NODE_ENV == "production"
+      ? "Domain=http://localhost:3000; Secure;"
+      : "";
+
   switch (req.method) {
     case "POST":
       let user;
@@ -10,8 +15,8 @@ export default async function(req, res) {
         try {
           user = await db.user.findOne({
             where: {
-              email: req.body.userInput
-            }
+              email: req.body.userInput,
+            },
           });
           if (!user) {
             throw err;
@@ -19,8 +24,8 @@ export default async function(req, res) {
         } catch (e) {
           user = await db.user.findOne({
             where: {
-              username: req.body.userInput
-            }
+              username: req.body.userInput,
+            },
           });
           if (!user) {
             throw err;
@@ -40,11 +45,19 @@ export default async function(req, res) {
             process.env.secretKey
           );
           // console.log(token)
+          console.log("setting header");
+          res.setHeader(
+            "Set-Cookie",
+            `token=${token}; Max-Age=${
+              60 * 60 * 24 * 365
+            }; Path=/; HttpOnly;${cookieEtc}`
+          );
+
           res.json({
             id: user.id,
             username: user.username,
             email: user.email,
-            token
+            token,
           });
         } else {
           console.log("invalid password");

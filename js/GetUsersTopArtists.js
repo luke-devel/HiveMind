@@ -1,7 +1,7 @@
 import axios from "axios";
 import db from "../pages/api/models";
 const { QueryTypes, Sequelize } = require("sequelize");
-import fs from "fs";
+import mysql2 from "mysql2";
 
 let sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -15,8 +15,9 @@ let sequelize = new Sequelize(
 );
 
 export default async function GetUsersTopArtists(token, useremail) {
+  console.log("IN GetUsersTopArtists", useremail);
   try {
-    const topArtists = await axios
+    await axios
       .get(
         // "https://api.spotify.com/v1/me/tracks?limit=50",
         // "https://api.spotify.com/v1/me/tracks?limit=50&offset=5",
@@ -50,6 +51,7 @@ export default async function GetUsersTopArtists(token, useremail) {
             type: QueryTypes.SELECT,
           }
         );
+        console.log("id", id);
         // console.log("id", id[0].id);
         // console.log(JSON.stringify(artistObject, null, 4));
         // fs.writeFile(
@@ -67,12 +69,12 @@ export default async function GetUsersTopArtists(token, useremail) {
           userid: id[0].id,
           topartists: JSON.stringify(artistObject),
         });
-        console.log("artist object written to db");
+        console.log("top artists object written to db");
       })
 
       .catch(function (error) {
         // handle error
-        console.log(error);
+        console.log("error in GetUsersTopArtists.js");
       });
   } catch (e) {
     console.log(`it failed in GetUsersTopArtists.js`, e);
