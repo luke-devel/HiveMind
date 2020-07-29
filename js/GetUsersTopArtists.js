@@ -1,7 +1,7 @@
 import axios from "axios";
+import mysql2 from "mysql2";
 import db from "../pages/api/models";
 const { QueryTypes, Sequelize } = require("sequelize");
-import mysql2 from "mysql2";
 
 let sequelize = new Sequelize(
   process.env.DB_NAME,

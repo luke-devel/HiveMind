@@ -456,6 +456,12 @@ var e,t=(e=__webpack_require__(/*! querystring */ "./node_modules/querystring-es
 
 var _construct = __webpack_require__(/*! @babel/runtime/helpers/construct */ "./node_modules/@babel/runtime/helpers/construct.js");
 
+function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
@@ -585,12 +591,12 @@ exports.createRouter = createRouter;
 function makePublicRouterInstance(router) {
   var _router = router;
   var instance = {};
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+
+  var _iterator = _createForOfIteratorHelper(urlPropertyFields),
+      _step;
 
   try {
-    for (var _iterator = urlPropertyFields[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var property = _step.value;
 
       if (typeof _router[property] === 'object') {
@@ -603,18 +609,9 @@ function makePublicRouterInstance(router) {
     } // Events is a static property on the router, the router doesn't have to be initialized to use it
 
   } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
+    _iterator.e(err);
   } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-        _iterator["return"]();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
+    _iterator.f();
   }
 
   instance.events = _router2["default"].events;
@@ -1862,6 +1859,10 @@ var _inherits = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./no
 
 var _regeneratorRuntime = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
@@ -1906,10 +1907,12 @@ function appGetInitialProps(_ref) {
 var App = /*#__PURE__*/function (_react$default$Compon) {
   _inherits(App, _react$default$Compon);
 
+  var _super = _createSuper(App);
+
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).apply(this, arguments));
+    return _super.apply(this, arguments);
   }
 
   _createClass(App, [{
@@ -3235,7 +3238,7 @@ try {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! next-client-pages-loader?page=%2F_app&absolutePagePath=next%2Fdist%2Fpages%2F_app! */"./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_app&absolutePagePath=next%2Fdist%2Fpages%2F_app!./");
-module.exports = __webpack_require__(/*! C:\Users\luke\Development\next-js\HiveMind\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
+module.exports = __webpack_require__(/*! C:\Users\luke\Development\HiveMind\node_modules\next\dist\client\router.js */"./node_modules/next/dist/client/router.js");
 
 
 /***/ }),

@@ -48,7 +48,7 @@ export default async function (req, res) {
           console.log("setting header");
           res.setHeader(
             "Set-Cookie",
-            `token=${token}; Max-Age=${
+            `usertoken=${token}; Max-Age=${
               60 * 60 * 24 * 365
             }; Path=/; HttpOnly;${cookieEtc}`
           );

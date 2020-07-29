@@ -587,17 +587,21 @@ exports["default"] = Head;
 
 var _classCallCheck = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
 
-var _possibleConstructorReturn = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
-
-var _getPrototypeOf = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
-
 var _assertThisInitialized = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
 
 var _createClass = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
 
+var _possibleConstructorReturn = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+
+var _getPrototypeOf = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+
 var _inherits = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
 
 var _toConsumableArray = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -619,62 +623,63 @@ exports["default"] = function () {
     }
   }
 
-  return (/*#__PURE__*/function (_react_1$Component) {
-      _inherits(_class, _react_1$Component);
+  return /*#__PURE__*/function (_react_1$Component) {
+    _inherits(_class, _react_1$Component);
 
-      _createClass(_class, null, [{
-        key: "rewind",
-        // Used when server rendering
-        value: function rewind() {
-          var recordedState = state;
-          state = undefined;
-          mountedInstances.clear();
-          return recordedState;
-        }
-      }]);
+    var _super = _createSuper(_class);
 
-      function _class(props) {
-        var _this;
+    _createClass(_class, null, [{
+      key: "rewind",
+      // Used when server rendering
+      value: function rewind() {
+        var recordedState = state;
+        state = undefined;
+        mountedInstances.clear();
+        return recordedState;
+      }
+    }]);
 
-        _classCallCheck(this, _class);
+    function _class(props) {
+      var _this;
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(_class).call(this, props));
+      _classCallCheck(this, _class);
 
-        if (isServer) {
-          mountedInstances.add(_assertThisInitialized(_this));
-          emitChange(_assertThisInitialized(_this));
-        }
+      _this = _super.call(this, props);
 
-        return _this;
+      if (isServer) {
+        mountedInstances.add(_assertThisInitialized(_this));
+        emitChange(_assertThisInitialized(_this));
       }
 
-      _createClass(_class, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-          mountedInstances.add(this);
-          emitChange(this);
-        }
-      }, {
-        key: "componentDidUpdate",
-        value: function componentDidUpdate() {
-          emitChange(this);
-        }
-      }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-          mountedInstances["delete"](this);
-          emitChange(this);
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          return null;
-        }
-      }]);
+      return _this;
+    }
 
-      return _class;
-    }(react_1.Component)
-  );
+    _createClass(_class, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        mountedInstances.add(this);
+        emitChange(this);
+      }
+    }, {
+      key: "componentDidUpdate",
+      value: function componentDidUpdate() {
+        emitChange(this);
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        mountedInstances["delete"](this);
+        emitChange(this);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return null;
+      }
+    }]);
+
+    return _class;
+  }(react_1.Component);
 };
 
 /***/ }),
