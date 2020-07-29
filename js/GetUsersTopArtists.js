@@ -16,6 +16,7 @@ let sequelize = new Sequelize(
 
 export default async function GetUsersTopArtists(token, useremail) {
   console.log("IN GetUsersTopArtists", useremail);
+  console.log("token:", token);
   try {
     await axios
       .get(
@@ -43,7 +44,6 @@ export default async function GetUsersTopArtists(token, useremail) {
         return spotifyAPIArtistObj;
       })
       .then(async (spotifyAPIArtistObj) => {
-        // console.log(artistObject);
         console.log("now in GetUsersTopArtists");
         await sequelize
           .query(`SELECT id FROM hivemind.users WHERE email='${useremail}'`, {
@@ -66,10 +66,14 @@ export default async function GetUsersTopArtists(token, useremail) {
                   console.log(
                     `userdata row found for user ${id[0].id}, updating row now.`
                   );
-                  db.userdata
-                    .destroy({ where: { userid: id[0].id } })
-                    .then((result) =>
-                      console.log(`row removed for ${id[0].id}`)
+                  await db.userdata
+                    .update(
+                      { topartists: JSON.stringify(spotifyAPIArtistObj) },
+                      {
+                        returning: true,
+                        where: { userid: id[0].id },
+                        plain: true,
+                      }
                     )
                     .catch((err) =>
                       console.log("err in removing existing userdata row", err)

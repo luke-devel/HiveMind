@@ -14,10 +14,10 @@ let sequelize = new Sequelize(
 );
 
 export default async function (req, res) {
-  console.log("user email: ", req.headers.useremail);
-  let userEmail = req.headers.useremail;
-  console.log("now on server-side in dataforfetch");
-  // thrid normal form
+  // Create const variable of userEmail retreived from request header
+  const userEmail = req.headers.useremail;
+  // Useing thrid normal form to access user's spotify api data from mysql database
+  // Returns raw json data which will be parsed below.
   const artistString = await sequelize.query(
     `SELECT distinct topartists
     FROM hivemind.userdata
@@ -31,8 +31,5 @@ export default async function (req, res) {
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json", "email", req.headers.email);
-  // console.log(artistString);
-  // const topArtists = artistString
-  // console.log(JSON.parse(artistString[0].topartists));
   res.json(JSON.parse(artistString[0].topartists));
 }

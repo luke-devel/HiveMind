@@ -14,23 +14,6 @@ export default function GetTopArtists({ artistArray }) {
   // *pulls data from spotify api using users client secret to mysql database*
   // *stored in addedArtistsList* - runs each page load*
 
-  async function refreshDatabase() {
-    // to add:
-    //        if statement to overwrite existing top artists already stored in db, if present
-    console.log("emailemail:", email);
-    fetch(`http://localhost:3000/api/spotify/addtopartists`, {
-      method: "POST",
-      headers: {
-        spotifyToken: localStorage.spotifyAccessToken,
-        userEmail: email,
-      },
-    });
-    setWatch("1");
-    setTimeout(function () {
-      Router.replace("/profile/choosedata");
-    }, 3000);
-  }
-
   return (
     <div
       style={{
@@ -84,7 +67,6 @@ export default function GetTopArtists({ artistArray }) {
             ) : (
               <a
                 className="navbar-brand"
-                onClick={refreshDatabase}
                 style={{
                   textAlign: "center",
                   cursor: "pointer",

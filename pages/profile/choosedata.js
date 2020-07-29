@@ -76,102 +76,64 @@ export default function ChooseData({ artistArray }) {
 
 // needs to not fetch unless data is empty for user
 ChooseData.getInitialProps = async function (ctx) {
-  console.log(ctx.req.headers);
-  const usertoken = ctx.req.headers.cookie.slice(11, 183);
+  // function to retrieve cookie value
+  const getCookie = (cname) => {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(ctx.req.headers.cookie);
+    var ca = decodedCookie.split(";");
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  };
+  const usertoken = getCookie("usertoken");
   const decodeduser = await jwt_decode(usertoken);
-  const spotifytoken = ctx.req.headers.cookie.slice(197, 377);
-  console.log(decodeduser.email);
-  console.log(spotifytoken);
+  const spotifytoken = getCookie("spotifytoken");
 
-  // if db exists, do this
-  // await fetch("http://localhost:3000/api/spotify/dataforfetch", {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     useremail: decoded.email,
-  //   },
-  //   credentials: "same-origin",
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     propData = data;
-  //   })
-  //   .catch(async (err) => {
-  //     console.log(
-  //       `there was an error, repopulating databasefor user ${decoded.email}`
-  //     );
-  try {
-    await axios
-      .get(
-        // "https://api.spotify.com/v1/me/tracks?limit=50",
-        // "https://api.spotify.com/v1/me/tracks?limit=50&offset=5",
-        "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${spotifytoken}`,
-          },
-        }
-      )
-      .then((res) => {
-        // console.log(res.data.items);
-        const artistObject = res.data.items.map(
-          ({ name, genres, images }, i) => ({
-            id: i + 1,
-            name,
-            genres,
-            images,
-          })
-        );
-        return artistObject;
-      })
-      .then(async (artistObject) => {
-        // console.log(artistObject);
-        console.log("now in GetUsersTopArtists");
-        const id = await sequelize.query(
-          `SELECT id FROM hivemind.users WHERE email='${decodeduser.email}'`,
-          {
-            type: QueryTypes.SELECT,
-          }
-        );
-        console.log("id", id);
-        // console.log("id", id[0].id);
-        // console.log(JSON.stringify(artistObject, null, 4));
-        // fs.writeFile(
-        //   "./test.json",
-        //   JSON.stringify(artistObject, null, 4),
-        //   function(err) {
-        //     if (err) {
-        //       return console.log(err);
-        //     }
+  // Add or refresh user's top artists to mysql database using spotify api
+  await fetch("http://localhost:3000/api/spotify/addtopartists", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      useremail: decodeduser.email,
+      spotifytoken: spotifytoken,
+    },
+    credentials: "same-origin",
+  })
+    .then((res) => {
+      console.log(res);
+      // res.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch(async (err) => {
+      console.log(
+        `there was an error, repopulating databasefor user ${decodeduser.email} in choosedata.js`,
+        err
+      );
+    });
 
-        //     console.log("The file was saved!");
-        //   }
-        // );
-        await db.userdata.create({
-          userid: id[0].id,
-          topartists: JSON.stringify(artistObject),
-        });
-        console.log("top artists object written to db");
-      })
+  // Retrieve user's top artists from mysql database
+  // Create artist data variable to store retrieved artist array
+  let spotifyArray;
+  await fetch("http://localhost:3000/api/spotify/dataforfetch", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      useremail: decodeduser.email,
+    },
+    credentials: "same-origin",
+  })
+    .then((res) => res.json())
+    .then((data) => (spotifyArray = data))
+    .catch((err) => console.log(`err in dataforfetch fetch in choosedata.js`));
 
-      .catch(function (error) {
-        // handle error
-        console.log("error in GetUsersTopArtists.js", error);
-      });
-  } catch (e) {
-    console.log(`it failed in GetUsersTopArtists.js`);
-  }
-
-  // await GetUsersTopArtists("token", "frank@gmail.com");
-  // console.log(ctx.req.headers);
-
-  // console.log(decoded.email);
-  // let propData;
-
-  // return { artistArray: propData };
-  return { artistArray: ["x", "y", "z"] };
-
-  // return "x";
+  return { artistArray: spotifyArray };
 };

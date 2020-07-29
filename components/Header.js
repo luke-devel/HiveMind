@@ -1,12 +1,13 @@
 import Border from "./Border";
 import React, { Component } from "react";
 import Router from "next/router";
+import Cookie from "js-cookie";
 
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      errors: {}
+      errors: {},
     };
 
     this.onLogout = this.onLogout.bind(this);
@@ -14,8 +15,8 @@ class Header extends Component {
   // deleting JWT token from localStorage and logging out.
   onLogout(e) {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
-    localStorage.removeItem("spotifyAccessToken");
+    Cookie.remove("usertoken");
+    Cookie.remove("spotifytoken");
     Router.replace("/");
   }
   render() {
@@ -37,7 +38,7 @@ class Header extends Component {
             className="navbar-brand"
             href="/profile/landing"
             style={{
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             <Border
@@ -45,7 +46,7 @@ class Header extends Component {
                 title: "hivemind",
                 width: "110%",
                 fontSize: "70px",
-                borderSize: "5px"
+                borderSize: "5px",
               }}
             />
           </a>
@@ -61,7 +62,7 @@ class Header extends Component {
                   color: "#212529",
                   fontStyle: "italic",
                   paddingRight: 30,
-                  marginLeft: "-30px"
+                  marginLeft: "-30px",
                 }}
               >
                 <Border
@@ -69,7 +70,7 @@ class Header extends Component {
                     title: "logout",
                     width: "110%",
                     borderSize: "3px",
-                    fontSize: "20px"
+                    fontSize: "20px",
                   }}
                 />
               </a>
