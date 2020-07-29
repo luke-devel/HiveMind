@@ -1,7 +1,6 @@
 // next.config.js
-require('dotenv').config()
+require("dotenv").config();
 
 const withImages = require("next-images");
 
-module.exports = withImages()
-  
+module.exports = withImages();

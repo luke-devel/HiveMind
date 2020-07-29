@@ -12,16 +12,16 @@ let sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
-    operatorsAliases: false
+    operatorsAliases: false,
   }
 );
 
 const db = {
   user: user(sequelize, Sequelize),
-  userdata: userdata(sequelize, Sequelize)
+  userdata: userdata(sequelize, Sequelize),
 };
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

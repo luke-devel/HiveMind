@@ -5,11 +5,22 @@ import Header from "../../components/Header";
 import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
 // import GetUsersTopArtists from "../../js/GetUsersTopArtists";
-
+// const { QueryTypes, Sequelize } = require("sequelize");
+// let sequelize = new Sequelize(
+//   process.env.DB_NAME,
+//   process.env.DB_USERNAME,
+//   process.env.DB_PASSWORD,
+//   {
+//     host: process.env.DB_HOST,
+//     dialect: "mysql",
+//     operatorsAliases: false,
+//   }
+// );
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-const { QueryTypes, Sequelize } = require("sequelize");
+// import db from "../../pages/api/models";
+
 //{ artistArray }
 export default function ChooseData({ artistArray }) {
   // console.log("data", data); // prints artist string
@@ -99,7 +110,7 @@ ChooseData.getInitialProps = async function (ctx) {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${spotifytoken}`,
           },
         }
       )
@@ -119,7 +130,7 @@ ChooseData.getInitialProps = async function (ctx) {
         // console.log(artistObject);
         console.log("now in GetUsersTopArtists");
         const id = await sequelize.query(
-          `SELECT id FROM hivemind.users WHERE email='${useremail}'`,
+          `SELECT id FROM hivemind.users WHERE email='${decodeduser.email}'`,
           {
             type: QueryTypes.SELECT,
           }
@@ -147,7 +158,7 @@ ChooseData.getInitialProps = async function (ctx) {
 
       .catch(function (error) {
         // handle error
-        console.log("error in GetUsersTopArtists.js");
+        console.log("error in GetUsersTopArtists.js", error);
       });
   } catch (e) {
     console.log(`it failed in GetUsersTopArtists.js`);

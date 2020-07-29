@@ -32,7 +32,7 @@ export default async function GetUsersTopArtists(token, useremail) {
       )
       .then((res) => {
         // console.log(res.data.items);
-        const artistObject = res.data.items.map(
+        const spotifyAPIArtistObj = res.data.items.map(
           ({ name, genres, images }, i) => ({
             id: i + 1,
             name,
@@ -40,41 +40,47 @@ export default async function GetUsersTopArtists(token, useremail) {
             images,
           })
         );
-        return artistObject;
+        return spotifyAPIArtistObj;
       })
-      .then(async (artistObject) => {
+      .then(async (spotifyAPIArtistObj) => {
         // console.log(artistObject);
         console.log("now in GetUsersTopArtists");
-        const id = await sequelize.query(
-          `SELECT id FROM hivemind.users WHERE email='${useremail}'`,
-          {
+        await sequelize
+          .query(`SELECT id FROM hivemind.users WHERE email='${useremail}'`, {
             type: QueryTypes.SELECT,
-          }
-        );
-        console.log("id", id);
-        // console.log("id", id[0].id);
-        // console.log(JSON.stringify(artistObject, null, 4));
-        // fs.writeFile(
-        //   "./test.json",
-        //   JSON.stringify(artistObject, null, 4),
-        //   function(err) {
-        //     if (err) {
-        //       return console.log(err);
-        //     }
-
-        //     console.log("The file was saved!");
-        //   }
-        // );
-        await db.userdata.create({
-          userid: id[0].id,
-          topartists: JSON.stringify(artistObject),
-        });
-        console.log("top artists object written to db");
+          })
+          .then(async (id) => {
+            await db.userdata
+              .findOne({ where: { userid: id[0].id } })
+              .then(async (found) => {
+                if (found == null) {
+                  console.log("its null!");
+                  await db.userdata.create({
+                    userid: id[0].id,
+                    topartists: JSON.stringify(spotifyAPIArtistObj),
+                  });
+                  console.log(
+                    `top artists object written to db for user: ${id[0].id}`
+                  );
+                } else {
+                  console.log(
+                    `userdata row found for user ${id[0].id}, updating row now.`
+                  );
+                  db.userdata
+                    .destroy({ where: { userid: id[0].id } })
+                    .then((result) =>
+                      console.log(`row removed for ${id[0].id}`)
+                    )
+                    .catch((err) =>
+                      console.log("err in removing existing userdata row", err)
+                    );
+                }
+              });
+          });
       })
-
       .catch(function (error) {
         // handle error
-        console.log("error in GetUsersTopArtists.js");
+        console.log("error in GetUsersTopArtists.js", error);
       });
   } catch (e) {
     console.log(`it failed in GetUsersTopArtists.js`, e);

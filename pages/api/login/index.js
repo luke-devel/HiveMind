@@ -1,6 +1,7 @@
 import db from "../models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mysql2 from "mysql2";
 
 export default async function (req, res) {
   const cookieEtc =
