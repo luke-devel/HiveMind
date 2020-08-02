@@ -6,7 +6,10 @@ import fetch from "isomorphic-unfetch";
 
 export default function GetTopArtists({ artistArray }) {
   // console.log("hh", GetTopArtists);
-
+  const refresh = () => {
+    console.log("xxxxx");
+    window.location.reload(false);
+  };
   const [addedArtistsList, setAddedArtistsList] = useState(artistArray);
   const [email, setEmail] = useState("");
   const [watch, setWatch] = useState("");
@@ -52,18 +55,41 @@ export default function GetTopArtists({ artistArray }) {
         <div className="row">
           <div className="col-12">
             {addedArtistsList || watch ? (
-              <h3
-                style={{
-                  textAlign: "center",
-                  paddingTop: 10,
-                  fontWeight: 600,
-                  fontStyle: "bold",
-                  fontSize: 25,
-                }}
-              >
-                Here are your top artists pulled from Spotify. Click to add to
-                an artist to your profile:
-              </h3>
+              <div>
+                <h3
+                  style={{
+                    textAlign: "center",
+                    paddingTop: 10,
+                    fontWeight: 600,
+                    fontStyle: "bold",
+                    fontSize: 25,
+                  }}
+                >
+                  Here are your top artists pulled from Spotify. to an artist to
+                  your profile:
+                </h3>
+                <div
+                  onClick={refresh}
+                  style={{
+                    textAlign: "center",
+                    fontFamily: "Roboto",
+                    fontWeight: "900",
+                    color: "#212529",
+                    fontStyle: "italic",
+                    paddingRight: 30,
+                    marginLeft: "-30px",
+                  }}
+                >
+                  <Border
+                    border={{
+                      title: "Click to Refresh",
+                      width: "10%",
+                      borderSize: "3px",
+                      fontSize: "20px",
+                    }}
+                  />
+                </div>
+              </div>
             ) : (
               <a
                 className="navbar-brand"
