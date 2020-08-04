@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +31,34 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  margin: {
+    margin: theme.spacing(0),
+  },
 }));
+
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "black",
+      fontWeight: "bold",
+      fontSize: 15,
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "black",
+      },
+      "&:hover fieldset": {
+        borderColor: "black",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+})(TextField);
 
 export default function Login() {
   const classes = useStyles();
@@ -48,7 +75,6 @@ export default function Login() {
   };
 
   const changeRememberMe = (e) => {
-    s;
     setRememberMe(`"${e.target.checked}"`);
   };
 
@@ -57,9 +83,13 @@ export default function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{ border: "2px solid black", borderRadius: "2%" }}
+    >
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={classes.paper} style={{ marginTop: 20 }}>
         <Typography
           style={{
             flexGrow: 1,
@@ -72,9 +102,9 @@ export default function Login() {
         >
           Hivemind
         </Typography>
-
-        <form className={classes.form} noValidate>
-          <TextField
+        <form>
+          <CssTextField
+            className={classes.margin}
             variant="outlined"
             margin="normal"
             required
@@ -86,7 +116,7 @@ export default function Login() {
             autoFocus
             onChange={usernameChange}
           />
-          <TextField
+          <CssTextField
             variant="outlined"
             margin="normal"
             required
@@ -98,6 +128,7 @@ export default function Login() {
             autoComplete="current-password"
             onChange={passwordChange}
           />
+
           <div>
             <FormControlLabel
               control={
@@ -110,18 +141,17 @@ export default function Login() {
               label="Remember me"
             />
           </div>
-          <h1>{rememberMe}</h1>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="black"
             className={classes.submit}
             onClick={onSubmit}
           >
             Sign In
           </Button>
-          <Grid container>
+          <Grid container style={{ marginBottom: 10 }}>
             <Grid item xs>
               <Link href="#" variant="body2" style={{ color: "black" }}>
                 Forgot password?
