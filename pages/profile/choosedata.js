@@ -51,20 +51,8 @@ export default function ChooseData({ artistArray }) {
       <Header />
       <div id="outer" style={{ boxSizing: "border-box" }}>
         <div id="body" style={bodyStyle}>
-          <main
-            style={{
-              gridArea: "main",
-              padding: "16px",
-              textAlign: "center",
-              backgroundColor: "#EF7B73",
-              border: "5px solid #212529",
-              borderTopWidth: 0,
-              height: "100vh",
-            }}
-          >
-            <div></div>
+
             <GetTopArtists artistArray={artistArray} />
-          </main>
           <footer
             style={{ padding: "0px", textAlign: "center", gridArea: "footer" }}
           ></footer>

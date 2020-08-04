@@ -3,6 +3,7 @@ import Router from "next/router";
 import { login } from "./UserFunctions";
 import Border from "./Border";
 import jwt_decode from "jwt-decode";
+import Cookie from "js-cookie";
 
 class Login extends Component {
   constructor() {
@@ -60,6 +61,8 @@ class Login extends Component {
             break;
           default:
             console.log("replacing with '/profile/landing'");
+            // logged in, setting cookie now
+            Cookie.set("loggedIn", 'true');
             Router.replace("/profile/landing");
             break;
         }

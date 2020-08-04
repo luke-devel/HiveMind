@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "cookie-parser": "^1.4.5",
@@ -25,6 +27,7 @@
     "jwt-decode": "^2.2.0",
     "letterboxd": "^1.0.2",
     "lodash": "^4.17.19",
+    "material-ui-icons": "^1.0.0-beta.36",
     "mysql2": "^2.1.0",
     "next": "^9.3.0",
     "next-connect": "^0.6.1",
