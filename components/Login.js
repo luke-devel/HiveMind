@@ -1,192 +1,140 @@
-import React, { Component } from "react";
-import Router from "next/router";
-import { login } from "./UserFunctions";
-import Border from "./Border";
-import jwt_decode from "jwt-decode";
-import Cookie from "js-cookie";
+import React, { useState, useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      email: "",
-      password: "",
-      errors: {}
-    };
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+export default function Login() {
+  const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState("false");
 
-  // checks if user already has been logged in with JWT token in localStorage
-  getTokenInfo() {
-    const token = localStorage.usertoken;
+  const usernameChange = (e) => {
+    setUsername(e.target.value);
+  };
 
-    if (token && localStorage.SpotifyAccessToken) {
-      try {
-        console.log(token);
-        const decoded = jwt_decode(token);
-        Router.replace("/profile/landing");
-      } catch {
-        // err in JWT token. does nothing
-      }
-    }
-  }
+  const passwordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
-  componentDidMount() {
-    this.getTokenInfo();
-  }
+  const changeRememberMe = (e) => {
+    s;
+    setRememberMe(`"${e.target.checked}"`);
+  };
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  onSubmit(e) {
-    e.preventDefault();
+  const onSubmit = () => {
+    console.log("submitting");
+  };
 
-    const newUser = {
-      userInput: this.state.userInput,
-      password: this.state.password
-    };
-    console.log(`logging in`);
-    login(newUser)
-      .then(res => {
-        switch (res.data) {
-          case "invalid username or email":
-            alert("invalid username or email");
-            Router.replace("/login");
-            break;
-          case "invalid password":
-            Router.replace("/login");
-            break;
-          default:
-            console.log("replacing with '/profile/landing'");
-            // logged in, setting cookie now
-            Cookie.set("loggedIn", 'true');
-            Router.replace("/profile/landing");
-            break;
-        }
-      })
-      .catch(err => {
-        console.log("Login Error", err);
-      });
-  }
-
-  render() {
-    return (
-      <div className="row m-3 p-3">
-        <div
-          className="col-lg-6 col-md-10 rounded-lg bg-light mx-auto shadow-lg"
-          style={{ paddingLeft: "0px", paddingRight: "0px" }}
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Typography
+          style={{
+            flexGrow: 1,
+            fontFamily: "Roboto",
+            fontStyle: "italic",
+            fontWeight: "900",
+            color: "black",
+            fontSize: "8vh",
+          }}
         >
-          <form
-            noValidate
-            onSubmit={this.onSubmit}
-            style={{
-              border: "5px solid #212529",
-              borderTopRightRadius: "4px",
-              borderBottomRightRadius: "4px",
-              borderTopLeftRadius: "4px",
-              borderBottomLeftRadius: "4px",
-              borderCollapse: "separate",
-              borderSpacing: "10px",
-              padding: "30px",
-              paddingTop: "00px",
-              paddingBottom: "0px"
-            }}
-          >
-            <Border
-              border={{
-                title: "hivemind",
-                width: "28vh",
-                fontSize: "6vh",
-                borderSize: "5px"
-              }}
+          Hivemind
+        </Typography>
+
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={usernameChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={passwordChange}
+          />
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value="true"
+                  color="primary"
+                  onClick={changeRememberMe}
+                />
+              }
+              label="Remember me"
             />
-            <div className="form-group">
-              <label
-                htmlFor="email"
-                style={{
-                  fontFamily: "Roboto",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#212529"
-                }}
-              >
-                username or email
-              </label>
-
-              <input
-                type="userInput"
-                className="form-control"
-                name="userInput"
-                placeholder="username or email"
-                value={this.state.userInput}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label
-                htmlFor="password"
-                style={{
-                  fontFamily: "Roboto",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#212529"
-                }}
-              >
-                password
-              </label>
-
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.onChange}
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-block "
-              style={{
-                backgroundColor: "#EF7B73",
-                fontFamily: "Roboto",
-                fontWeight: "900",
-                fontStyle: "italic",
-                fontSize: "25px",
-                marginTop: "20px",
-                color: "#212529"
-              }}
-            >
-              Sign In
-            </button>
-            <p
-              style={{
-                paddingTop: "10px",
-                fontFamily: "Roboto",
-                fontWeight: "500",
-                fontSize: "18px",
-                textAlign: "center",
-                paddingTop: "15px",
-                color: "#212529",
-                marginBottom: 20
-              }}
-            >
-              Not registered?{" "}
-              <a
-                href="/register"
-                style={{ fontStyle: "italic", color: "#EF7B73" }}
-              >
-                Sign Up
-              </a>
-            </p>
-          </form>
-        </div>
+          </div>
+          <h1>{rememberMe}</h1>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={onSubmit}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2" style={{ color: "black" }}>
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2" style={{ color: "black" }}>
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
       </div>
-    );
-  }
+    </Container>
+  );
 }
-
-export default Login;

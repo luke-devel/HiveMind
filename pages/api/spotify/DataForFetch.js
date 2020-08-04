@@ -1,5 +1,5 @@
 // import bcrypt from "bcrypt";
-import db from "../../../pages/api/models";
+import db from "../models";
 const { QueryTypes, Sequelize } = require("sequelize");
 
 let sequelize = new Sequelize(
@@ -28,7 +28,6 @@ export default async function (req, res) {
       type: QueryTypes.SELECT,
     }
   );
-
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json", "email", req.headers.email);
   res.json(JSON.parse(artistString[0].topartists));

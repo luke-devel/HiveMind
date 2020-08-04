@@ -2,9 +2,9 @@ import Border from "./Border";
 import Router from "next/router";
 import React, { useState, useEffect } from "react";
 import ArtistList from "./ArtistList";
-import DataTab from './DataTab';
+import DataTab from "./DataTab";
 import fetch from "isomorphic-unfetch";
-import Grid from '@material-ui/core/Grid';
+import Grid from "@material-ui/core/Grid";
 
 export default function GetTopArtists({ artistArray }) {
   // console.log("hh", GetTopArtists);
@@ -38,18 +38,8 @@ export default function GetTopArtists({ artistArray }) {
                 paddingTop: 10,
               }}
             >
-              Your Top Artists
+              Your Top 50 Spotify Artists
             </h1>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-12">
-            {addedArtistsList && (
-              <h2 style={{ textAlign: "center", paddingTop: 5 }}>
-                Favorite artists added to your profile:
-              </h2>
-            )}
           </div>
         </div>
 
@@ -60,35 +50,60 @@ export default function GetTopArtists({ artistArray }) {
                 <h3
                   style={{
                     textAlign: "center",
-                    paddingTop: 10,
                     fontWeight: 600,
                     fontStyle: "bold",
                     fontSize: 25,
                   }}
                 >
-                  Here are your top artists pulled from Spotify which will be added to your top artists data. Click to remove any artists who you DO NOT want on your data for matching. note: not all of these artists will appear on your public profile, but they will be used in the process of caluclating potential matches on the site.
+                  - Here are your top artists pulled from Spotify which will be
+                  added to your top artists data.
                 </h3>
-                {!addedArtistsList && (<div
-                  onClick={refresh}
+                <h3
                   style={{
                     textAlign: "center",
-                    fontFamily: "Roboto",
-                    fontWeight: "900",
-                    color: "#212529",
-                    fontStyle: "italic",
-                    paddingRight: 30,
-                    marginLeft: "-30px",
+                    fontWeight: 600,
+                    fontStyle: "bold",
+                    fontSize: 25,
                   }}
                 >
-                  <Border
-                    border={{
-                      title: "Click to Refresh",
-                      width: "10%",
-                      borderSize: "3px",
-                      fontSize: "20px",
+                  - Click to remove any artists who you DO NOT want on your data
+                  for matching.
+                </h3>
+                <h3
+                  style={{
+                    textAlign: "center",
+                    fontWeight: 600,
+                    fontStyle: "bold",
+                    fontSize: 25,
+                  }}
+                >
+                  - NOTE: not all of these artists will appear on your public
+                  profile, but they will be used in the process of caluclating
+                  potential matches on the site.
+                </h3>
+                {!addedArtistsList && (
+                  <div
+                    onClick={refresh}
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "Roboto",
+                      fontWeight: "900",
+                      color: "#212529",
+                      fontStyle: "italic",
+                      paddingRight: 30,
+                      marginLeft: "-30px",
                     }}
-                  />
-                </div>)}
+                  >
+                    <Border
+                      border={{
+                        title: "Click to Refresh",
+                        width: "10%",
+                        borderSize: "3px",
+                        fontSize: "20px",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <a
@@ -108,8 +123,8 @@ export default function GetTopArtists({ artistArray }) {
                 />
               </a>
             )}
-            <DataTab artistArray={artistArray}/>
-              {/* <ArtistList artistArray={artistArray} /> */}
+            <DataTab artistArray={artistArray} />
+            {/* <ArtistList artistArray={artistArray} /> */}
           </div>
         </div>
       </div>

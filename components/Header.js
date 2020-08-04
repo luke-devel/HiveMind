@@ -14,7 +14,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Cookie from "js-cookie";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
+
 export default function Header() {
+  const classes = useStyles();
   const [auth, setAuth] = React.useState(() => {
     if (Cookie.get("loggedIn") === "true") {
       return true;
@@ -49,17 +59,19 @@ export default function Header() {
 
   return (
     <div>
-      <AppBar position="static" style={{backgroundColor: '#EF7B73', borderBottom: '2px solid black'}}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "#EF7B73", borderBottom: "2px solid black" }}
+      >
         <Toolbar>
           <Typography
-            variant="h6"
             style={{
               flexGrow: 1,
               fontFamily: "Roboto",
               fontStyle: "italic",
               fontWeight: "900",
               color: "black",
-              fontSize: '4vh'
+              fontSize: "4vh",
             }}
           >
             Hivemind
@@ -67,13 +79,13 @@ export default function Header() {
           {auth ? (
             <div>
               <IconButton
-                aria-label="account of current logged in user"
+                aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
-                // color="inherit"
+                color="inherit"
               >
-                <AccountCircle color="action" style={{fontSize: 30}}/>
+                <AccountCircle />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -107,13 +119,13 @@ export default function Header() {
           ) : (
             <div>
               <IconButton
-                aria-label="user not logged in"
+                aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle color="action" style={{fontSize: 30}}/>
+                <AccountCircle />
               </IconButton>
               <Menu
                 id="menu-appbar"

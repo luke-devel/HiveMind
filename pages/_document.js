@@ -1,27 +1,19 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+/* eslint-disable react/jsx-filename-extension */
+import React from "react";
+import Document, { Html, Main, Head, NextScript } from "next/document";
+import { ServerStyleSheets } from "@material-ui/core/styles";
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
+export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
-          <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossorigin="anonymous"
-          />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,900&display=swap"
             rel="stylesheet"
           />
         </Head>
-        <body style={{ fontFamily: "Roboto" }}>
+        <body>
           <Main />
           <NextScript />
         </body>
@@ -30,4 +22,26 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+// `getInitialProps` belongs to `_document` (instead of `_app`),
+// it's compatible with server-side generation (SSG).
+MyDocument.getInitialProps = async (ctx) => {
+  // Render app and page and get the context of the page with collected side effects.
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
+
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+    });
+
+  const initialProps = await Document.getInitialProps(ctx);
+
+  return {
+    ...initialProps,
+    // Styles fragment is rendered after the app and page rendering finish.
+    styles: [
+      ...React.Children.toArray(initialProps.styles),
+      sheets.getStyleElement(),
+    ],
+  };
+};
