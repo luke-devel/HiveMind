@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -78,8 +79,22 @@ export default function Login() {
     setRememberMe(`"${e.target.checked}"`);
   };
 
-  const onSubmit = () => {
-    console.log("submitting");
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log("in submit");
+    console.log(username, password);
+    Axios("http://localhost:3000/api/login", {
+      method: "post",
+      url: "/api/login",
+      data: {
+        userinput: username,
+        password: password,
+      },
+    }).then((res) => {
+      // login success
+      console.log(res)}
+      )
+      .catch((err)=>console.log(`err in Login.js onSubmit login post request`))
   };
 
   return (

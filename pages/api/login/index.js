@@ -2,13 +2,10 @@ import db from "../models";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mysql2 from "mysql2";
+import Cookie from "js-cookie";
 
 export default async function (req, res) {
-  const cookieEtc =
-    process.env.NODE_ENV == "production"
-      ? "Domain=http://localhost:3000; Secure;"
-      : "";
-
+  console.log(req.body);
   switch (req.method) {
     case "POST":
       let user;
@@ -16,7 +13,7 @@ export default async function (req, res) {
         try {
           user = await db.user.findOne({
             where: {
-              email: req.body.userInput,
+              email: req.body.userinput,
             },
           });
           if (!user) {
@@ -25,7 +22,7 @@ export default async function (req, res) {
         } catch (e) {
           user = await db.user.findOne({
             where: {
-              username: req.body.userInput,
+              username: req.body.userinput,
             },
           });
           if (!user) {
@@ -34,26 +31,22 @@ export default async function (req, res) {
         }
       } catch (e) {
         console.log("caught correct");
-        // console.log(e)
+        console.log(e);
         res.end("invalid username or email");
       }
 
       if (user) {
-        const result = await bcrypt.compare(req.body.password, user.password);
+        const result = await bcrypt.compare(
+          req.body.password,
+          user.password
+        );
         if (result) {
+          // if password is correct
           const token = jwt.sign(
             { id: user.id, username: user.username, email: user.email },
             process.env.secretKey
           );
-          // console.log(token)
-          console.log("setting header");
-          res.setHeader(
-            "Set-Cookie",
-            `usertoken=${token}; Max-Age=${
-              60 * 60 * 24 * 365
-            }; Path=/; HttpOnly;${cookieEtc}`
-          );
-
+          res.status(201);
           res.json({
             id: user.id,
             username: user.username,

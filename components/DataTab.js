@@ -80,6 +80,7 @@ export default function DataTab({ artistArray }) {
           onChange={handleChange}
           aria-label="simple tabs example"
           style={{ backgroundColor: "black" }}
+          centered
         >
           <Tab label="Your Favorite Artists" {...a11yProps(0)} />
           <Tab label="Your Removed Artists" {...a11yProps(1)} />
