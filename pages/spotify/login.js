@@ -3,8 +3,20 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import Header from "../../components/Header";
 import Border from "../../components/Border";
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 export default function Login() {
+  const classes = useStyles();
   const [SpotifyAccessToken, setSpotifyAccessToken] = useState("xxx");
 
   useEffect(() => {
@@ -35,14 +47,7 @@ export default function Login() {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <Border
-          border={{
-            title: "hivemind",
-            width: "30vh",
-            borderSize: "5px",
-            fontSize: "60px",
-          }}
-        />
+        <CircularProgress />
       </div>
     </div>
   );

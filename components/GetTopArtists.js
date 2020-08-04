@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 export default function GetTopArtists({ artistArray }) {
   // console.log("hh", GetTopArtists);
   const refresh = () => {
-    console.log("xxxxx");
     window.location.reload(false);
   };
   const [addedArtistsList, setAddedArtistsList] = useState(artistArray);
@@ -69,7 +68,7 @@ export default function GetTopArtists({ artistArray }) {
                   Here are your top artists pulled from Spotify. to an artist to
                   your profile:
                 </h3>
-                <div
+                {!addedArtistsList && (<div
                   onClick={refresh}
                   style={{
                     textAlign: "center",
@@ -89,7 +88,7 @@ export default function GetTopArtists({ artistArray }) {
                       fontSize: "20px",
                     }}
                   />
-                </div>
+                </div>)}
               </div>
             ) : (
               <a
@@ -109,7 +108,7 @@ export default function GetTopArtists({ artistArray }) {
                 />
               </a>
             )}
-            <ArtistList artistArray={artistArray} />
+              <ArtistList artistArray={artistArray} />
           </div>
         </div>
       </div>

@@ -16,7 +16,6 @@ let sequelize = new Sequelize(
 
 export default async function GetUsersTopArtists(token, useremail) {
   console.log("IN GetUsersTopArtists", useremail);
-  console.log("token:", token);
   try {
     await axios
       .get(
@@ -76,7 +75,7 @@ export default async function GetUsersTopArtists(token, useremail) {
                       }
                     )
                     .catch((err) =>
-                      console.log("err in removing existing userdata row", err)
+                      console.log("err in removing existing userdata row")
                     );
                 }
               });
@@ -84,9 +83,9 @@ export default async function GetUsersTopArtists(token, useremail) {
       })
       .catch(function (error) {
         // handle error
-        console.log("error in GetUsersTopArtists.js", error);
+        console.log("error in GetUsersTopArtists.js");
       });
   } catch (e) {
-    console.log(`it failed in GetUsersTopArtists.js`, e);
+    console.log(`it failed in GetUsersTopArtists.js`);
   }
 }

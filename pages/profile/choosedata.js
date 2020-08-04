@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Profile from "../../components/Profile";
 import Header from "../../components/Header";
@@ -9,15 +10,21 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export default function ChooseData({ artistArray }) {
+  console.log(artistArray);
+  if (artistArray === false) {
+    window.location.reload(false);
+  }
+
+  const [addedArtistsList, setAddedArtistsList] = useState(artistArray);
   return (
     <>
       <Header />
       <div id="outer" style={{ boxSizing: "border-box" }}>
         <div id="body">
-            <GetTopArtists artistArray={artistArray} />
+          < GetTopArtists artistArray={artistArray} />   
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
@@ -60,12 +67,9 @@ ChooseData.getInitialProps = async function ({ req }) {
       credentials: "same-origin",
     })
       .then((res) => {
-        console.log(res);
         // res.json();
       })
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch(async (err) => {
         console.log(
           `there was an error, repopulating databasefor user ${decodeduser.email} in choosedata.js`,
@@ -91,6 +95,6 @@ ChooseData.getInitialProps = async function ({ req }) {
       );
     return { artistArray: spotifyArray };
   } else {
-    return { artistArray: ["Your Database is empty. Click above to refresh."] };
+    return { artistArray: false };
   }
 };

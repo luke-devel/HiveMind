@@ -27,9 +27,9 @@ const useStyles = makeStyles({
 export default function ArtistList({ artistArray }) {
   const classes = useStyles();
   console.log(artistArray);
-  const artistList = artistArray.map(({ id, genres, images, name }) => {
+  const artistList = artistArray.map(({ id, genres, images, name }, index) => {
     return (
-      <Grid item xs={3} key={id}>
+      <Grid item xs={3} key={index}>
         <Card className={classes.root} style={{textAlign: "center", padding: 10}}>
           <p style={{textAlign: 'left'}}>{`#${id}.`}</p>
           <img src={images[2].url} alt={name} width='160' height='160' />
