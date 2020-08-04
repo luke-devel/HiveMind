@@ -3,6 +3,7 @@ import Router from "next/router";
 import React, { useState, useEffect } from "react";
 import ArtistList from "./ArtistList";
 import fetch from "isomorphic-unfetch";
+import Grid from '@material-ui/core/Grid';
 
 export default function GetTopArtists({ artistArray }) {
   // console.log("hh", GetTopArtists);

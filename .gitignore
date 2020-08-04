@@ -4,3 +4,9 @@ node_modules
 yarn-error.log
 test.js
 yarn.lock
+.notes.md.swo
+.notes.md.swp
+syncSQL.js
+.next/server/pages-manifest.json
+.next/static/runtime/webpack.js
+.next/static/runtime/webpack.js.map

@@ -4,60 +4,20 @@ import Header from "../../components/Header";
 // // DataBody to be worked on soon
 import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
-// import GetUsersTopArtists from "../../js/GetUsersTopArtists";
-// const { QueryTypes, Sequelize } = require("sequelize");
-// let sequelize = new Sequelize(
-//   process.env.DB_NAME,
-//   process.env.DB_USERNAME,
-//   process.env.DB_PASSWORD,
-//   {
-//     host: process.env.DB_HOST,
-//     dialect: "mysql",
-//     operatorsAliases: false,
-//   }
-// );
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-// import db from "../../pages/api/models";
 
-//{ artistArray }
 export default function ChooseData({ artistArray }) {
-  console.log(artistArray); // prints artist string
-
-  const bodyStyle = {
-    fontFamily: "sans-serif",
-    margin: "0",
-    display: "grid",
-    gridTemplateColumns: "100%",
-    gridTemplateRows: "auto 70px",
-    gridTemplateAreas: `
-      "main"
-      "footer"`,
-  };
-
-  const bodyNavigation = {
-    listStyle: "none",
-    margin: "0",
-    padding: "0",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: " center",
-    height: "100%",
-  };
   return (
     <>
       <Header />
       <div id="outer" style={{ boxSizing: "border-box" }}>
-        <div id="body" style={bodyStyle}>
-
+        <div id="body">
             <GetTopArtists artistArray={artistArray} />
-          <footer
-            style={{ padding: "0px", textAlign: "center", gridArea: "footer" }}
-          ></footer>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

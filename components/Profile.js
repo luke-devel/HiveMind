@@ -48,7 +48,6 @@ export default function Profile() {
           backgroundColor: "#EF7B73",
           textAlign: "center",
           padding: "50px",
-          border: "5px solid #212529",
           borderTopWidth: 0
         }}
       >
