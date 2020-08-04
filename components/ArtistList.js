@@ -41,7 +41,7 @@ export default function ArtistList({ artistArray }) {
               return`${genre}, `
             }
         })}</p>
-          <div style={{paddingTop: 10, paddingBottom: 10}}>
+          <div style={{paddingTop: 0, paddingBottom: 10}}>
             <Button variant="contained">Remove From Favorite Artists</Button>
           </div>
         </Card>
