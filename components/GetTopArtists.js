@@ -2,6 +2,7 @@ import Border from "./Border";
 import Router from "next/router";
 import React, { useState, useEffect } from "react";
 import ArtistList from "./ArtistList";
+import DataTab from './DataTab';
 import fetch from "isomorphic-unfetch";
 import Grid from '@material-ui/core/Grid';
 
@@ -107,7 +108,8 @@ export default function GetTopArtists({ artistArray }) {
                 />
               </a>
             )}
-              <ArtistList artistArray={artistArray} />
+            <DataTab artistArray={artistArray}/>
+              {/* <ArtistList artistArray={artistArray} /> */}
           </div>
         </div>
       </div>

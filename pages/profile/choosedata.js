@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Footer from "../../components/Footer";
 import Profile from "../../components/Profile";
 import Header from "../../components/Header";
-// // DataBody to be worked on soon
-import DataBody from "../../components/DataBody";
 import GetTopArtists from "../../components/GetTopArtists";
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
