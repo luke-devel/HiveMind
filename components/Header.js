@@ -1,49 +1,27 @@
-import React from 'react';
+import React from "react";
 import Router from "next/router";
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 import Cookie from "js-cookie";
 
-export default function MenuAppBar() {
-    console.log()
-  // const getCookie = (cname) => {
-  //   var name = cname + "=";
-  //   var decodedCookie = decodeURIComponent(req.headers.cookie);
-  //   var ca = decodedCookie.split(";");
-  //   for (var i = 0; i < ca.length; i++) {
-  //     var c = ca[i];
-  //     while (c.charAt(0) == " ") {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) == 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return "";
-  // };
-  // const usertoken = getCookie("usertoken");
-  // console.log('%cHeader.js line:44 ' + Object.keys({usertoken})[0]+ '', 'color: blue', usertoken);
-  const [auth, setAuth] = React.useState(()=>{
-    if(Cookie.get('loggedIn')==='true'){
-      return true
+export default function Header() {
+  const [auth, setAuth] = React.useState(() => {
+    if (Cookie.get("loggedIn") === "true") {
+      return true;
+    } else {
+      return false;
     }
-    else{
-      return false
-    }
-    // Cookie.get('loggedIn')
   });
-  // console.log("MenuAppBar -> Cookie.get()", Cookie.get())
-  console.log("MenuAppBar -> auth", auth)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -61,7 +39,7 @@ export default function MenuAppBar() {
 
   const logOut = () => {
     // set loggedIn cookie to false, and logging user out, sending them back to index
-    Cookie.set('loggedIn', 'false')
+    Cookie.set("loggedIn", "false");
     Router.push("/");
   };
 
@@ -70,10 +48,20 @@ export default function MenuAppBar() {
   };
 
   return (
-    <div >
-      <AppBar position="static">
+    <div>
+      <AppBar position="static" style={{backgroundColor: '#EF7B73', borderBottom: '2px solid black'}}>
         <Toolbar>
-          <Typography variant="h6" style={{flexGrow: 1}}>
+          <Typography
+            variant="h6"
+            style={{
+              flexGrow: 1,
+              fontFamily: "Roboto",
+              fontStyle: "italic",
+              fontWeight: "900",
+              color: "black",
+              fontSize: '4vh'
+            }}
+          >
             Hivemind
           </Typography>
           {auth ? (
@@ -83,61 +71,68 @@ export default function MenuAppBar() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
-                color="inherit"
+                // color="inherit"
               >
-                <AccountCircle />
+                <AccountCircle color="action" style={{fontSize: 30}}/>
               </IconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose, ()=>{
-                  console.log('hellog')
-                }}>Profile</MenuItem>
+                <MenuItem
+                  onClick={
+                    (handleClose,
+                    () => {
+                      console.log("hellog");
+                    })
+                  }
+                >
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose, logOut}>Log Out</MenuItem>
+                <MenuItem onClick={(handleClose, logOut)}>Log Out</MenuItem>
               </Menu>
             </div>
           ) : (
             <div>
-            <IconButton
-              aria-label="user not logged in"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose, logIn}>Log in</MenuItem>
-            </Menu>
-          </div>
+              <IconButton
+                aria-label="user not logged in"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle color="action" style={{fontSize: 30}}/>
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={(handleClose, logIn)}>Log in</MenuItem>
+              </Menu>
+            </div>
           )}
         </Toolbar>
       </AppBar>
