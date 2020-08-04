@@ -65,6 +65,9 @@ export default function MenuAppBar() {
     Router.push("/");
   };
 
+  const logIn = () => {
+    Router.push("/login");
+  };
 
   return (
     <div >
@@ -73,10 +76,10 @@ export default function MenuAppBar() {
           <Typography variant="h6" style={{flexGrow: 1}}>
             Hivemind
           </Typography>
-          {auth && (
+          {auth ? (
             <div>
               <IconButton
-                aria-label="account of current user"
+                aria-label="account of current logged in user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
@@ -106,6 +109,35 @@ export default function MenuAppBar() {
                 <MenuItem onClick={handleClose, logOut}>Log Out</MenuItem>
               </Menu>
             </div>
+          ) : (
+            <div>
+            <IconButton
+              aria-label="user not logged in"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose, logIn}>Log in</MenuItem>
+            </Menu>
+          </div>
           )}
         </Toolbar>
       </AppBar>
