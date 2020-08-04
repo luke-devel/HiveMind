@@ -92,9 +92,7 @@ export default function DataTab({ artistArray }) {
         style={{ backgroundColor: "#EF7B73" }}
         component={"span"}
       >
-        <div>
-          <ArtistList artistArray={favArtists} removeArtist={removeArtist} />
-        </div>
+        <ArtistList artistArray={favArtists} removeArtist={removeArtist} />
       </TabPanel>
       <TabPanel
         value={value}
@@ -102,13 +100,11 @@ export default function DataTab({ artistArray }) {
         style={{ backgroundColor: "#EF7B73" }}
         component={"span"}
       >
-        <div>
-          <ArtistList
-            artistArray={removedArtists}
-            reAddArtist={reAddArtist}
-            removedTab={true}
-          />
-        </div>
+        <ArtistList
+          artistArray={removedArtists}
+          reAddArtist={reAddArtist}
+          removedTab={true}
+        />
       </TabPanel>
     </div>
   );

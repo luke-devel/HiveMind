@@ -3,7 +3,7 @@ import Router from "next/router";
 import Cookie from "js-cookie";
 import Header from "../../components/Header";
 import Border from "../../components/Border";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({

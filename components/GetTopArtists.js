@@ -35,7 +35,8 @@ export default function GetTopArtists({ artistArray }) {
                 textDecoration: "underline",
                 fontWeight: 600,
                 fontStyle: "italic",
-                paddingTop: 10,
+                paddingTop: 20,
+                margin: 0,
               }}
             >
               Your Top 50 Spotify Artists
@@ -124,7 +125,6 @@ export default function GetTopArtists({ artistArray }) {
               </a>
             )}
             <DataTab artistArray={artistArray} />
-            {/* <ArtistList artistArray={artistArray} /> */}
           </div>
         </div>
       </div>

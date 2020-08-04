@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Router from "next/router";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -90,11 +92,22 @@ export default function Login() {
         userinput: username,
         password: password,
       },
-    }).then((res) => {
-      // login success
-      console.log(res)}
-      )
-      .catch((err)=>console.log(`err in Login.js onSubmit login post request`))
+    })
+      .then((res) => {
+        // login success if res.status=201
+        if (res.status === 201) {
+          // login success
+          Cookies.set("loggedIn", "true");
+          Cookies.set("usertoken", res.data.token);
+          Router.push("/profile/landing");
+        } else {
+          // login failed
+          alert("Login failed. Please re-enter your login and password again.");
+        }
+      })
+      .catch((err) =>
+        console.log(`err in Login.js onSubmit login post request`)
+      );
   };
 
   return (

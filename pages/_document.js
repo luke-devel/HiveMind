@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body style={{ margin: 0 }}>
+        <body style={{ margin: 0, fontFamily: "Roboto" }}>
           <Main />
           <NextScript />
         </body>

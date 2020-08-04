@@ -8,37 +8,46 @@ import fetch from "isomorphic-unfetch";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Cookie from "js-cookie";
+import { CircularProgress } from "@material-ui/core";
 
 export default function ChooseData() {
   console.log(Cookie.get());
-  // const instance = axios.create({
-  //   baseURL: "http://localhost:3000/api/spotify/dataforfetch",
-  //   headers: { useremail: decodeduser.email },
-  // });
 
-  const [artistArray, setArtistArray] = useState("artistArray");
+  const [artistArray, setArtistArray] = useState();
+  const [userToken, setUserToken] = useState(Cookie.get("usertoken"));
 
   console.log({ artistArray });
   useEffect(() => {
-    console.log("hi");
-    // if (artistArray === undefined || artistArray === false) {
-    //   const rawArtistsResponse = await axios.get(
-    //     "http://localhost:3000/api/spotify/dataforfetch",
-    //     {
-    //       headers: {
-    //         useremail: decodeduser.email, //the token is a variable which holds the token
-    //       },
-    //     }
-    //   );
-    //     }
+    console.log("hi in useEffect");
+    fetchData();
   }, [0]);
-  console.log({ artistArray });
 
+  const fetchData = async () => {
+    const decoded = jwt_decode(userToken);
+    console.log("decoded", decoded);
+    if (artistArray === undefined || artistArray === false) {
+      const rawArtistsResponse = await axios.get(
+        "http://localhost:3000/api/spotify/dataforfetch",
+        {
+          headers: {
+            useremail: decoded.email, //the token is a variable which holds the token
+          },
+        }
+      );
+      setArtistArray(rawArtistsResponse.data);
+    }
+  };
   return (
     <>
       <Header />
       <div id="outer" style={{ boxSizing: "border-box" }}>
-        <div id="body">{/* <GetTopArtists artistArray={artistArray} /> */}</div>
+        <div id="body">
+          {artistArray ? (
+            <GetTopArtists artistArray={artistArray} />
+          ) : (
+            <CircularProgress />
+          )}
+        </div>
       </div>
       <Footer />
     </>
@@ -104,4 +113,3 @@ export default function ChooseData() {
 //   } else {
 //     return { artistArray: false };
 //   }
-// };

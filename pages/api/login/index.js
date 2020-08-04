@@ -5,7 +5,7 @@ import mysql2 from "mysql2";
 import Cookie from "js-cookie";
 
 export default async function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
   switch (req.method) {
     case "POST":
       let user;
@@ -36,10 +36,7 @@ export default async function (req, res) {
       }
 
       if (user) {
-        const result = await bcrypt.compare(
-          req.body.password,
-          user.password
-        );
+        const result = await bcrypt.compare(req.body.password, user.password);
         if (result) {
           // if password is correct
           const token = jwt.sign(

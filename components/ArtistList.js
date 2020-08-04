@@ -33,7 +33,14 @@ export default function ArtistList({
   const classes = useStyles();
   const artistList = artistArray.map(({ id, genres, images, name }, index) => {
     return (
-      <Grid item xs={4} key={index} style={{ padding: 20 }} component={"span"}>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={3}
+        style={{ textAlign: "center" }}
+        key={index}
+      >
         <Card
           className={classes.root}
           style={{
@@ -55,7 +62,9 @@ export default function ArtistList({
                 border: "4px solid black",
               }}
             />
-            <h1 style={{ paddingTop: 5, fontSize: "70va" }}>{name}</h1>
+            <h1 style={{ paddingTop: 5, fontSize: "70va", margin: 0 }}>
+              {name}
+            </h1>
             <div>
               {genres.length === 0 ? (
                 <div>No genre data ;(</div>
@@ -71,13 +80,21 @@ export default function ArtistList({
                 </div>
               )}
             </div>
-            <div style={{ paddingTop: 0, paddingBottom: 10 }}>
+            <div style={{ paddingTop: 10, paddingBottom: 10 }}>
               {removedTab === true ? (
-                <Button variant="contained" onClick={() => reAddArtist(index)}>
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#EF7B73" }}
+                  onClick={() => reAddArtist(index)}
+                >
                   Re-Add to Favorite Artists
                 </Button>
               ) : (
-                <Button variant="contained" onClick={() => removeArtist(index)}>
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#EF7B73" }}
+                  onClick={() => removeArtist(index)}
+                >
                   Remove From Favorite Artists
                 </Button>
               )}
@@ -92,7 +109,7 @@ export default function ArtistList({
 
   return (
     <div className={classes.root} style={{ marginTop: 30, marginBottom: 30 }}>
-      <Grid container spacing={10} component={"span"}>
+      <Grid container spacing={5} component={"span"}>
         {artistList}
       </Grid>
     </div>

@@ -8,8 +8,8 @@ export default function Footer() {
       container
       spacing={0}
       style={{
-        background: "#EF7B73",
         borderTop: "2px solid black",
+        backgroundColor: "#EF7B73",
       }}
     >
       <Grid item xs={12} style={{ padding: 0, textAlign: "center" }}>
@@ -20,6 +20,7 @@ export default function Footer() {
             fontStyle: "italic",
             fontWeight: "900",
             color: "black",
+
             fontSize: "25px",
             margin: 10,
           }}

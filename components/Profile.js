@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import Cookie from "js-cookie";
 import Router from "next/router";
 import Border from "./Border";
 import AddData from "./AddData";
@@ -10,25 +11,20 @@ export default function Profile() {
   const [spotifyToken, setSpotifyToken] = useState("");
 
   useEffect(() => {
-    // console.log("sup");
-    setToken();
-    getTokenInfo();
+    const userToken = Cookie.get("usertoken");
+    getTokenInfo(userToken);
+    setSpotifyToken(Cookie.get("spotifytoken"));
   }, [0]);
 
-  function getTokenInfo() {
+  function getTokenInfo(usertoken) {
     try {
-      const token = localStorage.usertoken;
+      const token = usertoken;
       const decoded = jwt_decode(token);
       setUsername(decoded.username);
       setEmail(decoded.email);
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function setToken() {
-    setSpotifyToken(localStorage.getItem("spotifyAccessToken"));
-    // console.log("set");
   }
 
   function checkToken() {
@@ -48,7 +44,7 @@ export default function Profile() {
           backgroundColor: "#EF7B73",
           textAlign: "center",
           padding: "50px",
-          borderTopWidth: 0
+          borderTopWidth: 0,
         }}
       >
         <h1 style={{ fontStyle: "italic" }}>Welcome, {username}! </h1>
@@ -68,7 +64,7 @@ export default function Profile() {
                 fontStyle: "italic",
                 paddingRight: 30,
                 marginLeft: "-30px",
-                cursor: "pointer"
+                cursor: "pointer",
               }}
             >
               <Border
@@ -76,7 +72,7 @@ export default function Profile() {
                   title: "choose your top artists and tracks for your profile",
                   width: "30vh",
                   borderSize: "5px",
-                  fontSize: "30px"
+                  fontSize: "30px",
                 }}
               />
             </a>
