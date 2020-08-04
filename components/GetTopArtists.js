@@ -45,7 +45,7 @@ export default function GetTopArtists({ artistArray }) {
         <div className="row">
           <div className="col-12">
             {addedArtistsList && (
-              <h2 style={{ textAlign: "center", paddingTop: 30 }}>
+              <h2 style={{ textAlign: "center", paddingTop: 5 }}>
                 Favorite artists added to your profile:
               </h2>
             )}
@@ -65,8 +65,7 @@ export default function GetTopArtists({ artistArray }) {
                     fontSize: 25,
                   }}
                 >
-                  Here are your top artists pulled from Spotify. to an artist to
-                  your profile:
+                  Here are your top artists pulled from Spotify which will be added to your top artists data. Click to remove any artists who you DO NOT want on your data for matching. note: not all of these artists will appear on your public profile, but they will be used in the process of caluclating potential matches on the site.
                 </h3>
                 {!addedArtistsList && (<div
                   onClick={refresh}

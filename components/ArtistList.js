@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 
 export default function ArtistList({ artistArray }) {
   const classes = useStyles();
-  console.log(artistArray);
   const artistList = artistArray.map(({ id, genres, images, name }, index) => {
     return (
       <Grid item xs={3} key={index}>
@@ -43,7 +42,7 @@ export default function ArtistList({ artistArray }) {
             }
         })}</p>
           <div style={{paddingTop: 10, paddingBottom: 10}}>
-            <Button variant="contained">Add to Favorites</Button>
+            <Button variant="contained">Remove From Favorite Artists</Button>
           </div>
         </Card>
       </Grid>
