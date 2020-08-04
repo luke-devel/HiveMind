@@ -6,12 +6,11 @@ export default function Footer() {
       className="container-fluid"
       style={{
         background: "#EF7B73",
-        border: "5px solid #212529",
-        borderTopWidth: 0
+        borderTop: '2px solid black'
       }}
     >
       <div className="row">
-        <div className="col-lg-12 spacer"></div>
+        <div className="col-  lg-12 spacer"></div>
       </div>
       <div className="row">
         <div className="col-lg-12 footer">
@@ -25,7 +24,7 @@ export default function Footer() {
               padding: 5
             }}
           >
-            Copyright © 2020 - HiveMind
+            © 2020 - Hivemind
           </p>
         </div>
       </div>
