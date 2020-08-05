@@ -9,34 +9,84 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Cookie from "js-cookie";
 import { CircularProgress } from "@material-ui/core";
+import { update } from "lodash";
 
 export default function ChooseData() {
-  console.log(Cookie.get());
-
   const [artistArray, setArtistArray] = useState();
-  const [userToken, setUserToken] = useState(Cookie.get("usertoken"));
+  const [hasDB, setHasDB] = useState("false");
+  const [userToken, setUserToken] = useState([]);
+  const [spotifyToken, setSpotifyToken] = useState(Cookie.get("spotifytoken"));
 
-  console.log({ artistArray });
+  // useEffect calls fetchData(), which will make a get request for raw top artist data from db.
   useEffect(() => {
-    console.log("hi in useEffect");
-    fetchData();
+    try {
+      const tkn = Cookie.get("usertoken");
+      const decoded = jwt_decode(tkn);
+      console.log("decoded", decoded);
+      // setUserToken(decoded);
+      if (decoded.email !== undefined && spotifyToken !== undefined) {
+        console.log("here");
+        // console.log(decoded.email);
+        updateDB(spotifyToken, decoded.email).then(()=>{
+          fetchData(decoded.email);
+
+        })
+       
+      } else {
+        Router.push("/profile/choosedata");
+      }
+    } catch (error) {
+      console.log("ERRRR: ", error);
+    }
   }, [0]);
 
-  const fetchData = async () => {
-    const decoded = jwt_decode(userToken);
-    console.log("decoded", decoded);
-    if (artistArray === undefined || artistArray === false) {
+  const updateDB = async (spotToken, userJWT) => {
+    // console.log(spotToken, userJWT);
+    await axios("http://localhost:3000/api/spotify/addtopartists", {
+      method: "post",
+      data: {
+        spotifytoken: spotToken,
+        useremail: userJWT,
+      },
+    })
+      .then((res) => {
+        // console.log(res.status);
+        if (res.status === 201) {
+          // success
+          setHasDB("true");
+        } else {
+          // post req failed
+          console.log("post req failed in updateDB");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const fetchData = async (email) => {
+    if (artistArray === undefined) {
       const rawArtistsResponse = await axios.get(
         "http://localhost:3000/api/spotify/dataforfetch",
         {
           headers: {
-            useremail: decoded.email, //the token is a variable which holds the token
+            useremail: email, //the token is a variable which holds the token
           },
         }
       );
       setArtistArray(rawArtistsResponse.data);
     }
   };
+
+  const wrapper = async () => {
+    await decodeUserToken();
+    // check for data in db for user
+    if (spotifyToken && userToken) {
+      if (hasDB === "false") {
+        await updateDB();
+      }
+      await fetchData();
+    }
+  };
+
   return (
     <>
       <Header />
@@ -45,7 +95,25 @@ export default function ChooseData() {
           {artistArray ? (
             <GetTopArtists artistArray={artistArray} />
           ) : (
-            <CircularProgress />
+            <div
+              style={{
+                backgroundColor: "#EF7B73",
+                height: "100vh",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#EF7B73",
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  WebkitTransform: "translate(-50%, -50%)",
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <CircularProgress />
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -53,63 +121,3 @@ export default function ChooseData() {
     </>
   );
 }
-
-// needs to not fetch unless data is empty for user
-// ChooseData.getInitialProps = async function ({ req }) {
-//   console.log("in get initialprops");
-//   const isServer = !!req;
-//   console.log(isServer);
-//   if (isServer) {
-//     let spotifyArray;
-
-//     // function to retrieve cookie value
-//     const getCookie = (cname) => {
-//       var name = cname + "=";
-//       var decodedCookie = decodeURIComponent(req.headers.cookie);
-//       var ca = decodedCookie.split(";");
-//       for (var i = 0; i < ca.length; i++) {
-//         var c = ca[i];
-//         while (c.charAt(0) == " ") {
-//           c = c.substring(1);
-//         }
-//         if (c.indexOf(name) == 0) {
-//           return c.substring(name.length, c.length);
-//         }
-//       }
-//       return "";
-//     };
-//     const usertoken = getCookie("usertoken");
-//     const decodeduser = await jwt_decode(usertoken);
-//     const spotifytoken = getCookie("spotifytoken");
-//     console.log("usertoken, ", decodeduser);
-//     console.log("spotifytoken, ", spotifytoken);
-
-//     // Add or refresh user's top artists to mysql database using spotify api
-//     // GET request to spotify api, then write that data directly into our mysql db
-//     // await fetch("http://localhost:3000/api/spotify/addtopartists", {
-//     //   method: "GET",
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //     useremail: decodeduser.email,
-//     //     spotifytoken: spotifytoken,
-//     //   },
-//     //   credentials: "same-origin",
-//     // })
-//     //   .then((res) => {
-//     //     // res.json();
-//     //   })
-//     //   .then((data) => {})
-//     //   .catch(async (err) => {
-//     //     console.log(
-//     //       `there was an error, repopulating databasefor user ${decodeduser.email} in choosedata.js`,
-//     //       err
-//     //     );
-//     //   });
-
-//     // Retrieve user's top artists from mysql database, after it is already placed by GET request above
-//     // Create artist data variable to store retrieved artist array
-
-//     return { artistArray: rawArtistsResponse.data };
-//   } else {
-//     return { artistArray: false };
-//   }

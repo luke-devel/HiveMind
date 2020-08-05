@@ -114,10 +114,10 @@ export default function Login() {
     <Container
       component="main"
       maxWidth="xs"
-      style={{ border: "2px solid black", borderRadius: "2%" }}
+      style={{ border: "2px solid black", borderRadius: "2%", width: "80%" }}
     >
       <CssBaseline />
-      <div className={classes.paper} style={{ marginTop: 20 }}>
+      <div className={classes.paper} style={{ marginTop: 10 }}>
         <Typography
           style={{
             flexGrow: 1,
@@ -125,7 +125,8 @@ export default function Login() {
             fontStyle: "italic",
             fontWeight: "900",
             color: "black",
-            fontSize: "8vh",
+            fontSize: "6vw",
+            marginBottom: 10
           }}
         >
           Hivemind
@@ -138,7 +139,7 @@ export default function Login() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email Address or Username"
             name="email"
             autoComplete="email"
             autoFocus
@@ -173,21 +174,21 @@ export default function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            color="black"
+            style={{backgroundColor: "black", color: "white", marginTop: 5}}
             className={classes.submit}
             onClick={onSubmit}
           >
             Sign In
           </Button>
           <Grid container style={{ marginBottom: 10 }}>
-            <Grid item xs>
+            <Grid item xs={12} md={6}>
               <Link href="#" variant="body2" style={{ color: "black" }}>
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6} style={{textAlign: "center"}}>
               <Link href="#" variant="body2" style={{ color: "black" }}>
-                {"Don't have an account? Sign Up"}
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

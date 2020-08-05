@@ -7,3 +7,4 @@ yarn.lock
 .notes.md.swo
 .notes.md.swp
 syncSQL.js
+next.config.js

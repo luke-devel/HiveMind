@@ -48,6 +48,7 @@ export default function ArtistList({
             padding: 10,
             borderRadius: "2%",
             border: "4px solid black",
+            backgroundColor: "#e3e3e3"
           }}
         >
           <div>

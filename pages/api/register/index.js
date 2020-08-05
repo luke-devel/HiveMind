@@ -1,23 +1,21 @@
-import bcrypt from 'bcrypt'
-import db from "../models"
+import bcrypt from "bcrypt";
+import db from "../models";
 
 export default async function (req, res) {
-
+  let user;
+  try {
     const hash = await bcrypt.hash(req.body.password, 10);
-
-    const user = await db.user.create({
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        password: hash,
-
+    user = await db.user.create({
+      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
+      password: hash,
     });
+    res.status(201);
+  } catch (err) {
+    console.log("err in api/regiter/index.js sequelize,", err);
+    res.status(200);
+  }
+  res.end(JSON.stringify(user));
 
-    if (user.errno === 1062) {
-        user = {
-            errno: 1062,
-            errormessage: "Email already exists"
-        }
-    }
-    res.end(JSON.stringify(user));
 }
