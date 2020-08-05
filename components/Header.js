@@ -106,13 +106,22 @@ export default function Header() {
                   onClick={
                     (handleClose,
                     () => {
-                      console.log("hellog");
+                      Router.push("/profile");
                     })
                   }
                 >
                   Profile
                 </MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem
+                  onClick={
+                    (handleClose,
+                    () => {
+                      Router.push("/profile");
+                    })
+                  }
+                >
+                  My account
+                </MenuItem>
                 <MenuItem onClick={(handleClose, logOut)}>Log Out</MenuItem>
               </Menu>
             </div>

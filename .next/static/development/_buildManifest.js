@@ -1,1 +1,1 @@
-self.__BUILD_MANIFEST = {"/_error":["static\u002Fchunks\u002Fpages\u002F_error.js"],"/profile/choosedata":["static\u002Fchunks\u002Fpages\u002Fprofile\u002Fchoosedata.js"],"/profile/landing":["static\u002Fchunks\u002Fpages\u002Fprofile\u002Flanding.js"]};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
+self.__BUILD_MANIFEST = {"/_error":["static\u002Fchunks\u002Fpages\u002F_error.js"],"/profile":["static\u002Fchunks\u002Fpages\u002Fprofile.js"]};self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()

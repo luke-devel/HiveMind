@@ -4,6 +4,7 @@ import Cookie from "js-cookie";
 import Router from "next/router";
 import Border from "./Border";
 import AddData from "./AddData";
+import DataTab from "./DataTab";
 
 export default function Profile() {
   const [username, setUsername] = useState("");
@@ -43,41 +44,15 @@ export default function Profile() {
           minHeight: "100vh",
           backgroundColor: "#EF7B73",
           textAlign: "center",
-          padding: "50px",
+          padding: "20px",
           borderTopWidth: 0,
         }}
       >
-        <h1 style={{ fontStyle: "italic" }}>Welcome, {username}! </h1>
-        {!spotifyToken ? (
-          <AddData />
-        ) : (
-          <div>
-            <h3 style={{ paddingTop: 40, fontStyle: "italic", fontSize: 30 }}>
-              Now your Spotify account is linked.
-            </h3>
-            <a
-              onClick={checkToken}
-              style={{
-                fontFamily: "Roboto",
-                fontWeight: "900",
-                color: "#212529",
-                fontStyle: "italic",
-                paddingRight: 30,
-                marginLeft: "-30px",
-                cursor: "pointer",
-              }}
-            >
-              <Border
-                border={{
-                  title: "choose your top artists and tracks for your profile",
-                  width: "30vh",
-                  borderSize: "5px",
-                  fontSize: "30px",
-                }}
-              />
-            </a>
-          </div>
-        )}
+        <h1 style={{ fontStyle: "italic", margin: 0, color: "black" }}>
+          Welcome, {username.charAt(0).toUpperCase(0) + username.slice(1)}!{" "}
+        </h1>
+
+        {/* <AddData /> */}
       </div>
     </>
   );

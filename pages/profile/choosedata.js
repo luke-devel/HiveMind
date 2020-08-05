@@ -27,11 +27,9 @@ export default function ChooseData() {
       if (decoded.email !== undefined && spotifyToken !== undefined) {
         console.log("here");
         // console.log(decoded.email);
-        updateDB(spotifyToken, decoded.email).then(()=>{
+        updateDB(spotifyToken, decoded.email).then(() => {
           fetchData(decoded.email);
-
-        })
-       
+        });
       } else {
         Router.push("/profile/choosedata");
       }
@@ -41,7 +39,6 @@ export default function ChooseData() {
   }, [0]);
 
   const updateDB = async (spotToken, userJWT) => {
-    // console.log(spotToken, userJWT);
     await axios("http://localhost:3000/api/spotify/addtopartists", {
       method: "post",
       data: {
@@ -50,7 +47,6 @@ export default function ChooseData() {
       },
     })
       .then((res) => {
-        // console.log(res.status);
         if (res.status === 201) {
           // success
           setHasDB("true");
@@ -73,17 +69,6 @@ export default function ChooseData() {
         }
       );
       setArtistArray(rawArtistsResponse.data);
-    }
-  };
-
-  const wrapper = async () => {
-    await decodeUserToken();
-    // check for data in db for user
-    if (spotifyToken && userToken) {
-      if (hasDB === "false") {
-        await updateDB();
-      }
-      await fetchData();
     }
   };
 

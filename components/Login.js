@@ -99,7 +99,7 @@ export default function Login() {
           // login success
           Cookies.set("loggedIn", "true");
           Cookies.set("usertoken", res.data.token);
-          Router.push("/profile/landing");
+          Router.push("/profile");
         } else {
           // login failed
           alert("Login failed. Please re-enter your login and password again.");
@@ -125,8 +125,8 @@ export default function Login() {
             fontStyle: "italic",
             fontWeight: "900",
             color: "black",
-            fontSize: "6vw",
-            marginBottom: 10
+            fontSize: "80px",
+            marginBottom: 10,
           }}
         >
           Hivemind
@@ -174,7 +174,7 @@ export default function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            style={{backgroundColor: "black", color: "white", marginTop: 5}}
+            style={{ backgroundColor: "black", color: "white", marginTop: 5 }}
             className={classes.submit}
             onClick={onSubmit}
           >
@@ -182,12 +182,16 @@ export default function Login() {
           </Button>
           <Grid container style={{ marginBottom: 10 }}>
             <Grid item xs={12} md={6}>
-              <Link href="#" variant="body2" style={{ color: "black" }}>
+              <Link
+                href="/forgotpassword"
+                variant="body2"
+                style={{ color: "black" }}
+              >
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item xs={12} md={6} style={{textAlign: "center"}}>
-              <Link href="#" variant="body2" style={{ color: "black" }}>
+            <Grid item xs={12} md={6} style={{ textAlign: "center" }}>
+              <Link href="/register" variant="body2" style={{ color: "black" }}>
                 Don't have an account? Sign Up
               </Link>
             </Grid>

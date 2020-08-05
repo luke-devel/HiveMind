@@ -8,7 +8,7 @@ export default function Landing() {
     <div
       style={{
         backgroundColor: "#EF7B73",
-        height: "100vh",
+        height: "87vh",
       }}
     >
       <div
@@ -19,7 +19,7 @@ export default function Landing() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "60vh",
+          minHeight: "90vh",
         }}
       >
         <div>
@@ -35,7 +35,16 @@ export default function Landing() {
           >
             Hivemind
           </Typography>
-          <Button variant="contained" style={{backgroundColor: "black", color: "white", marginTop: 10, fontSize: 20}} href="#contained-buttons">
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "black",
+              color: "white",
+              marginTop: 10,
+              fontSize: 20,
+            }}
+            href="login"
+          >
             Log In
           </Button>
         </div>

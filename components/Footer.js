@@ -10,6 +10,7 @@ export default function Footer() {
       style={{
         borderTop: "2px solid black",
         backgroundColor: "#EF7B73",
+        marginTop: 0,
       }}
     >
       <Grid item xs={12} style={{ padding: 0, textAlign: "center" }}>
