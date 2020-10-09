@@ -12,4 +12,6 @@
 ### About:
 Allows a user to create an account (their user info and password is stored in a MySql Database using bcrypt hashed passwords). Once the user is logged in, their authentication status is stored in the HTTPS Headers using JSON Web Tokens. The user can now link their account with their Spotify account using OAuth 2.0 authentication. With the users OAuth token we can now communicate with the Spotify API gives the response of the users top 50 Spotify Artists. This data can be shown on the users profile, and certain artists can be removed from their 'Favorites' list, then added back if needed.
 
+![](examples/example.gif
+)
 ![alt text](https://github.com/luke-ols0/HiveMind/blob/master/notes/FetchingSpotifyDataDiagram.png?raw=true "Logo Title Text 1")
