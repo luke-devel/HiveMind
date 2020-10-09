@@ -1,7 +1,7 @@
 # HiveMind
 ### Technology Used:
 * [**Node.js**](https://nodejs.org/en/) - Backend
-* [**Next.js**](https://github.com/vercel/next.js) - Backend Framework (uses [**Babel**](https://https://babeljs.io/) and [**Webpack**](https://webpack.js.org/))
+* [**Next.js**](https://github.com/vercel/next.js) - Backend Framework (uses [**Babel**](https://babeljs.io/) and [**Webpack**](https://webpack.js.org/))
 * [**React**](https://github.com/facebook/react) - Frontend Framework
 * [**Axios**](https://github.com/axios/axios) - HTTP Client
 * [**bcrypt**](https://github.com/kelektiv/node.bcrypt.js) - Hashed Password Encryption
