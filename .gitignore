@@ -1,10 +1,8 @@
 node_modules
-.next
 .env
 yarn-error.log
-test.js
+test.json
 yarn.lock
-.notes.md.swo
-.notes.md.swp
 syncSQL.js
 next.config.js
+.next
