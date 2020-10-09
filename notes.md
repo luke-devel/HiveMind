@@ -1,1 +1,0 @@
-we need to set spotify token to cookies as well
