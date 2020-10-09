@@ -99,7 +99,7 @@ export default function Login() {
           // login success
           Cookies.set("loggedIn", "true");
           Cookies.set("usertoken", res.data.token);
-          Router.push("/profile");
+          Router.push("/profile/landing");
         } else {
           // login failed
           alert("Login failed. Please re-enter your login and password again.");

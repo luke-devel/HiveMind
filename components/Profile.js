@@ -15,6 +15,10 @@ export default function Profile() {
     const userToken = Cookie.get("usertoken");
     getTokenInfo(userToken);
     setSpotifyToken(Cookie.get("spotifytoken"));
+    if(!Cookie.get("spotifytoken")){
+      Router.replace("/spotify/landing");
+
+    }
   }, [0]);
 
   function getTokenInfo(usertoken) {
@@ -52,7 +56,7 @@ export default function Profile() {
           Welcome, {username.charAt(0).toUpperCase(0) + username.slice(1)}!{" "}
         </h1>
 
-        {/* <AddData /> */}
+         {/* <AddData />  */}
       </div>
     </>
   );

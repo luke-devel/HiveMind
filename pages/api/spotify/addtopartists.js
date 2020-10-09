@@ -22,7 +22,7 @@ export default async function (req, res) {
       .get(
         // "https://api.spotify.com/v1/me/tracks?limit=50",
         // "https://api.spotify.com/v1/me/tracks?limit=50&offset=5",
-        "https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50",
+        "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=50",
         {
           headers: {
             Accept: "application/json",

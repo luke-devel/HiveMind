@@ -17,11 +17,6 @@ import jwt_decode from "jwt-decode";
 import Cookie from "js-cookie";
 import DataTab from "./DataTab";
 
-const scopes =
-  "user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played+user-library-read";
-
-const spotifyWebApiURL = `https://accounts.spotify.com/authorize/?client_id=a95607d988d845b8aa8c38e6c722e09a&response_type=token&redirect_uri=http://localhost:3000/spotify/login&scope=${scopes}`;
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -83,7 +78,7 @@ export default function AddData() {
           fetchData(decoded.email);
         });
       } else {
-        Router.push("/profile");
+        Router.push("/profile/landing");
       }
     } catch (error) {
       console.log("ERRRR: ", error);

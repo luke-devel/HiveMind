@@ -34,7 +34,7 @@ export default function ChooseData() {
         Router.push("/profile/choosedata");
       }
     } catch (error) {
-      console.log("ERRRR: ", error);
+      console.log("ERRRR1: ", error);
     }
   }, [0]);
 

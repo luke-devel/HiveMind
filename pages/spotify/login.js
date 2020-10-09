@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
-  const [SpotifyAccessToken, setSpotifyAccessToken] = useState("xxx");
+  const [SpotifyAccessToken, setSpotifyAccessToken] = useState("");
 
   useEffect(() => {
     let url = window.location.href;

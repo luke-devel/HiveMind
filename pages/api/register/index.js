@@ -13,7 +13,7 @@ export default async function (req, res) {
     });
     res.status(201);
   } catch (err) {
-    console.log("err in api/regiter/index.js sequelize,", err);
+    console.log("err in api/regiter/index.js sequelize,", err)
     res.status(200);
   }
   res.end(JSON.stringify(user));
